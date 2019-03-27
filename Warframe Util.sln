@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Warframe Util", "Warframe Util\Warframe Util.vbproj", "{E5BF1E71-78EF-4586-BEDD-6DD5D15F1B5E}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EHP Calculator", "EHP Calculator\EHP Calculator.vbproj", "{5523D654-07F2-41C9-B0AB-A1E1451CF517}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5BF1E71-78EF-4586-BEDD-6DD5D15F1B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5BF1E71-78EF-4586-BEDD-6DD5D15F1B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5BF1E71-78EF-4586-BEDD-6DD5D15F1B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5BF1E71-78EF-4586-BEDD-6DD5D15F1B5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5523D654-07F2-41C9-B0AB-A1E1451CF517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5523D654-07F2-41C9-B0AB-A1E1451CF517}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5523D654-07F2-41C9-B0AB-A1E1451CF517}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5523D654-07F2-41C9-B0AB-A1E1451CF517}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4612F29E-8D88-473D-821B-C7A99711B337}
+	EndGlobalSection
+EndGlobal
