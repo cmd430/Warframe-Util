@@ -1,6 +1,6 @@
-﻿Imports System.ComponentModel.Composition
+﻿Imports MEFContracts.Interfaces
+Imports System.ComponentModel.Composition
 Imports System.Windows.Forms
-Imports Warframe_Util
 
 <Export(GetType(IMethods))>
 <ExportMetadata("Name", "EHP Calculator")>
@@ -10,11 +10,21 @@ Imports Warframe_Util
 Public Class EHP_Calculator
     Implements IMethods
 
-    Public Function Init(host As TabPage) As TabPage Implements IMethods.Init
-        host.Controls.Add(New PluginGUI With {
-            .Dock = DockStyle.Fill
-        })
-        Return host
+    <Import>
+    Public Settings As ISettings
+
+    Public Function Init(Container As TabPage) As TabPage Implements IMethods.Init
+        With Settings
+
+            MsgBox("Setting Value: " & .GetValue("TESTS", "test_parm").ToString())
+            MsgBox("Setting Updated: " & .SetValue("TESTS", "test_parm", TimeString).ToString())
+            MsgBox("Setting Value: " & .GetValue("TESTS", "test_parm").ToString())
+
+            Container.Controls.Add(New GUI With {
+                .Dock = DockStyle.Fill
+            })
+            Return Container
+        End With
     End Function
 
 End Class

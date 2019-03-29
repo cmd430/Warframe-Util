@@ -7,6 +7,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Warframe Util", "Warframe U
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EHP Calculator", "EHP Calculator\EHP Calculator.vbproj", "{5523D654-07F2-41C9-B0AB-A1E1451CF517}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MEFContracts", "MEFContracts\MEFContracts.vbproj", "{BF2AC293-D113-49A7-A018-C47A782D9DA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5523D654-07F2-41C9-B0AB-A1E1451CF517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5523D654-07F2-41C9-B0AB-A1E1451CF517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5523D654-07F2-41C9-B0AB-A1E1451CF517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF2AC293-D113-49A7-A018-C47A782D9DA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF2AC293-D113-49A7-A018-C47A782D9DA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF2AC293-D113-49A7-A018-C47A782D9DA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF2AC293-D113-49A7-A018-C47A782D9DA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
