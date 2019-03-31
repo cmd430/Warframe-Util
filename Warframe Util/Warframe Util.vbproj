@@ -164,10 +164,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(TargetDir)Data\Libs\"
-copy /Y "$(SolutionDir)MEFContracts\$(OutDir)MEFContracts.dll" "$(TargetDir)Data\Libs\MEFContracts.dll"
-
-mkdir "$(TargetDir)Data\Extensions\"
-copy /Y "$(SolutionDir)EHP Calculator\$(OutDir)EHP Calculator.dll" "$(TargetDir)Data\Extensions\EHP Calculator.dll"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>if not exist "$(TargetDir)Data" mkdir "$(TargetDir)Data"
+if not exist "$(TargetDir)Data\Libs" mkdir "$(TargetDir)Data\Libs"
+if not exist "$(TargetDir)Data\Extensions" mkdir "$(TargetDir)Data\Extensions"</PreBuildEvent>
   </PropertyGroup>
 </Project>

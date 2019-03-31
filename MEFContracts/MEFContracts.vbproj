@@ -102,4 +102,7 @@
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetDir)MEFContracts.dll" "$(SolutionDir)Warframe Util\$(OutDir)Data\Libs\MEFContracts.dll"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

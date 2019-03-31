@@ -6,25 +6,20 @@ Imports System.Reflection
 
 Public Class Warframe_PluginHost
 
-    Private __container As CompositionContainer
-
     <ImportMany()>
-    Public Property Extensions As IEnumerable(Of Lazy(Of IMethods, IMeta))
+    Private Property Extensions As IEnumerable(Of Lazy(Of IMethods, IMeta))
+    Private __container As CompositionContainer
 
     Public Sub New()
         AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf DoResolve
         InitializeComponent()
-
         CreateIfMissing("Data\Extensions")
         CreateIfMissing("Data\Logs")
         CreateIfMissing("Data\Settings")
-
         Dim catalog As New AggregateCatalog
         catalog.Catalogs.Add(New AssemblyCatalog(GetType(Warframe_PluginHost).Assembly))
         catalog.Catalogs.Add(New DirectoryCatalog("Data\Extensions"))
-
         __container = New CompositionContainer(catalog)
-
         Try
             __container.ComposeParts(Me)
         Catch ex As Exception
@@ -41,21 +36,18 @@ Public Class Warframe_PluginHost
         End If
     End Function
 
-    Private Function CreateIfMissing(path As String)
+    Private Sub CreateIfMissing(path As String)
         If Not Directory.Exists(path) Then Directory.CreateDirectory(path)
-        Return True
-    End Function
+    End Sub
 
     Private Sub Warframe_PluginHost_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
             Dim ExtensionInfo As String = ""
             For Each i As Lazy(Of IMethods, IMeta) In Extensions
                 If Not i.Metadata.Name = "" Then
-                    Dim Plugin_TabPage = New TabPage With {
+                    TabControl_PluginHost.TabPages.Add(i.Value.Init(New TabPage With {
                         .Text = i.Metadata.Name.ToString()
-                    }
-                    TabControl_PluginHost.TabPages.Add(i.Value.Init(Plugin_TabPage))
-
+                    }))
                     ExtensionInfo =
                         ExtensionInfo &
                         "======================================" & vbCrLf &

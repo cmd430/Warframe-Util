@@ -10,25 +10,27 @@ Imports System.Windows.Forms
 Public Class EHP_Calculator
     Implements IMethods
 
-    <Import>
+    <Import(GetType(ISettings))>
     Public Settings As ISettings
+
 
     Public Function Init(Container As TabPage) As TabPage Implements IMethods.Init
         With Settings
 
-            MsgBox("Setting Value: " & .GetValue("TESTS", "test_parm").ToString())
-            MsgBox("Setting Updated: " & .SetValue("TESTS", "test_parm", TimeString).ToString())
-            MsgBox("Setting Value: " & .GetValue("TESTS", "test_parm").ToString())
+
+            '    MsgBox("Setting Value: " & .GetValue("TESTS", "test_parm").ToString())
+            '    MsgBox("Setting Updated: " & .SetValue("TESTS", "test_parm", TimeString).ToString())
+            '    MsgBox("Setting Value: " & .GetValue("TESTS", "test_parm").ToString())
 
             Container.Controls.Add(New GUI With {
                 .Dock = DockStyle.Fill
             })
+
             Return Container
         End With
     End Function
 
 End Class
-
 
 '
 ' TODO have generic functions for adding base/regular hp etc that can then be called by mods 
