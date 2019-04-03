@@ -8,6 +8,7 @@ Public Class GUI
     Public Warframes As JObject = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes.json"))
     Public Selected_Warframe As JObject = Nothing
     Public Warframe_Stats As JObject = Nothing
+    Public Rank_Bonuses As JObject = Warframes("rank")
 
     Public Sub New()
         InitializeComponent()
@@ -81,20 +82,59 @@ Public Class GUI
         SelectedVariantChanged()
     End Sub
 
+    Private Function getRankedStat(ByVal Stat As String)
+        Dim res As Decimal = 0
+        If Stat = "armor" Then
+            If TypeOf Selected_Warframe.SelectToken("overrides.rank.armor", errorWhenNoMatch:=False) Is Object Then
+                res = CType(Warframe_Stats("armor"), Decimal) * CType(Selected_Warframe.SelectToken("overrides.rank.armor"), Decimal)
+            Else
+                res = CType(Warframe_Stats("armor"), Decimal) * CType(Rank_Bonuses("armor"), Decimal)
+            End If
+        End If
+        If Stat = "health" Then
+            If TypeOf Selected_Warframe.SelectToken("overrides.rank.health", errorWhenNoMatch:=False) Is Object Then
+                res = CType(Warframe_Stats("health"), Decimal) * CType(Selected_Warframe.SelectToken("overrides.rank.health"), Decimal)
+            Else
+                res = CType(Warframe_Stats("health"), Decimal) * CType(Rank_Bonuses("health"), Decimal)
+            End If
+        End If
+        If Stat = "shield" Then
+            If TypeOf Selected_Warframe.SelectToken("overrides.rank.shield", errorWhenNoMatch:=False) Is Object Then
+                res = CType(Warframe_Stats("shield"), Decimal) * CType(Selected_Warframe.SelectToken("overrides.rank.shield"), Decimal)
+            Else
+                res = CType(Warframe_Stats("shield"), Decimal) * CType(Rank_Bonuses("shield"), Decimal)
+            End If
+        End If
+        If Stat = "energy" Then
+            If TypeOf Selected_Warframe.SelectToken("overrides.rank.energy", errorWhenNoMatch:=False) Is Object Then
+                res = CType(Warframe_Stats("energy"), Decimal) * CType(Selected_Warframe.SelectToken("overrides.rank.energy"), Decimal)
+            Else
+                res = CType(Warframe_Stats("energy"), Decimal) * CType(Rank_Bonuses("energy"), Decimal)
+            End If
+        End If
+        If Stat = "strength" Then
+            If TypeOf Selected_Warframe.SelectToken("overrides.rank.strength", errorWhenNoMatch:=False) Is Object Then
+                res = CType(Warframe_Stats("strength"), Decimal) * CType(Selected_Warframe.SelectToken("overrides.rank.strength"), Decimal)
+            Else
+                res = CType(Warframe_Stats("strength"), Decimal) * CType(Rank_Bonuses("strength"), Decimal)
+            End If
+        End If
+        Return Math.Round(res)
+    End Function
 
     Private Sub SelectedVariantChanged()
         If CheckBox_isPrime.Checked And CheckBox_isPrime.Enabled Then
-            Warframe_Stats = Selected_Warframe("variants")("prime")
+            Warframe_Stats = Selected_Warframe.SelectToken("variants.prime")
         ElseIf CheckBox_isUmbra.Checked And CheckBox_isUmbra.Enabled Then
-            Warframe_Stats = Selected_Warframe("variants")("umbra")
+            Warframe_Stats = Selected_Warframe.SelectToken("variants.umbra")
         Else
-            Warframe_Stats = Selected_Warframe("variants")("base")
+            Warframe_Stats = Selected_Warframe.SelectToken("variants.base")
         End If
-        TextBox_Armor.Text = Warframe_Stats("armor")
-        TextBox_Health.Text = Warframe_Stats("health")
-        TextBox_Shield.Text = Warframe_Stats("shield")
-        TextBox_Energy.Text = Warframe_Stats("energy")
-        TextBox_PowerStrength.Text = Warframe_Stats("strength")
+        TextBox_Armor.Text = getRankedStat("armor")
+        TextBox_Health.Text = getRankedStat("health")
+        TextBox_Shield.Text = getRankedStat("shield")
+        TextBox_Energy.Text = getRankedStat("energy")
+        TextBox_PowerStrength.Text = getRankedStat("strength")
     End Sub
 
     Private Sub GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
