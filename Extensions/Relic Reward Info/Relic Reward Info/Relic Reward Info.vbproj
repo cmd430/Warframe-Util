@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BF2AC293-D113-49A7-A018-C47A782D9DA0}</ProjectGuid>
+    <ProjectGuid>{E43EED26-6CDD-47F8-8E01-4E738DA6F2B3}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>MEFContracts</RootNamespace>
-    <AssemblyName>MEFContracts</AssemblyName>
+    <RootNamespace>Relic_Reward_Info</RootNamespace>
+    <AssemblyName>Relic Reward Info</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
@@ -19,7 +19,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>MEFContracts.xml</DocumentationFile>
+    <DocumentationFile>Relic Reward Info.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -28,7 +28,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>MEFContracts.xml</DocumentationFile>
+    <DocumentationFile>Relic Reward Info.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -45,7 +45,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -65,7 +67,13 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces.vb" />
+    <Compile Include="GUI.Designer.vb">
+      <DependentUpon>GUI.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GUI.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Relic_Reward_Info.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -83,6 +91,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GUI.resx">
+      <DependentUpon>GUI.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -101,8 +112,17 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\App\MEFContracts\MEFContracts.vbproj">
+      <Project>{BF2AC293-D113-49A7-A018-C47A782D9DA0}</Project>
+      <Name>MEFContracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)MEFContracts.dll" "$(SolutionDir)Warframe Util\$(OutDir)Data\Libs\MEFContracts.dll"</PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(TargetDir)Relic Reward Info.dll" "$(SolutionDir)App\Warframe Util\$(OutDir)Data\Extensions\Relic Reward Info.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

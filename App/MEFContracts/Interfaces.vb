@@ -1,9 +1,7 @@
-﻿Imports System.Windows.Forms
-
-Public Class Interfaces
+﻿Public Class Interfaces
 
     Public Interface IMethods
-        Function Init(ByVal Container As TabPage) As TabPage
+        Function Init() As Object
     End Interface
 
     Public Interface IMeta

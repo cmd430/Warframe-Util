@@ -45,9 +45,11 @@ Public Class Warframe_PluginHost
             Dim ExtensionInfo As String = ""
             For Each i As Lazy(Of IMethods, IMeta) In Extensions
                 If Not i.Metadata.Name = "" Then
-                    TabControl_PluginHost.TabPages.Add(i.Value.Init(New TabPage With {
+                    Dim ext_tabpage = New TabPage With {
                         .Text = i.Metadata.Name.ToString()
-                    }))
+                    }
+                    ext_tabpage.Controls.Add(i.Value.Init)
+                    TabControl_PluginHost.TabPages.Add(ext_tabpage)
                     ExtensionInfo =
                         ExtensionInfo &
                         "======================================" & vbCrLf &
@@ -84,7 +86,7 @@ Public Class Settings
 
     'Read INI File and Return Value of Param or Default if Undefined
     Public Function GetValue(ByVal Section As String, ByVal ParamName As String, Optional ByVal ParamDefault As String = "") As String Implements ISettings.GetValue
-        Dim ExtentionName As String = Reflection.Assembly.GetCallingAssembly().GetName().Name.ToString()
+        Dim ExtentionName As String = Assembly.GetCallingAssembly().GetName().Name.ToString()
         Dim SettingFile As String = "Data\Settings\" & ExtentionName & ".ini"
         Dim ParamVal As String = Space$(1024)
         Dim LenParamVal As Long = GetPrivateProfileString(Section, ParamName, ParamDefault, ParamVal, Len(ParamVal), SettingFile)
@@ -93,7 +95,7 @@ Public Class Settings
 
     'Write INI Param Value to File and Return TRUE|FALSE if Value is saved
     Public Function SetValue(ByVal Section As String, ByVal ParamName As String, ByVal ParamValue As String) As Boolean Implements ISettings.SetValue
-        Dim ExtentionName As String = Reflection.Assembly.GetCallingAssembly().GetName().Name.ToString()
+        Dim ExtentionName As String = Assembly.GetCallingAssembly().GetName().Name.ToString()
         Dim SettingFile As String = "Data\Settings\" & ExtentionName & ".ini"
         Return WritePrivateProfileString(Section, ParamName, ParamValue, SettingFile)
     End Function

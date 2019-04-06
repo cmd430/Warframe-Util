@@ -1,20 +1,37 @@
 ﻿Imports System.IO
 Imports System.Windows.Forms
-Imports EHP_Calculator.Utilities
+Imports System.ComponentModel.Composition
 Imports Newtonsoft.Json.Linq
+Imports MEFContracts.Interfaces
 
-Public Class GUI
+<Export(GetType(IMethods))>
+<ExportMetadata("Name", "EHP Calculator")>
+<ExportMetadata("Description", "EHP Calculator for Warframes and Compainions")>
+<ExportMetadata("Author", "Bradley 'cmd430' Treweek")>
+<ExportMetadata("Version", "0.0.1")>
+Public Class EHP_Calculator
+    Implements IMethods
 
-    Public Warframes As JObject = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes.json"))
-    Public Selected_Warframe As JObject = Nothing
-    Public Warframe_Stats As JObject = Nothing
-    Public Rank_Bonuses As JObject = Warframes("rank")
+    <Import(GetType(ISettings))>
+    Public Settings As ISettings
 
-    Public Sub New()
+    Public Function Init() As Object Implements IMethods.Init
+        With Me
+            .FormBorderStyle = FormBorderStyle.None
+            .TopLevel = False
+            .Dock = DockStyle.Fill
+            .Show()
+            Return Me
+        End With
+    End Function
+
+    Private Warframes As JObject = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes.json"))
+    Private Selected_Warframe As JObject = Nothing
+    Private Warframe_Stats As JObject = Nothing
+    Private Rank_Bonuses As JObject = Warframes("rank")
+
+    Private Sub New()
         InitializeComponent()
-
-        AddHandler CheckBox_isPrime.CheckedChanged, AddressOf CheckBox_isPrime_isUmbra_CheckedChanged
-        AddHandler CheckBox_isUmbra.CheckedChanged, AddressOf CheckBox_isPrime_isUmbra_CheckedChanged
 
         ComboBox_Warframes.SelectedIndex = 0
         For Each Warframe In Warframes("warframes")
@@ -26,22 +43,24 @@ Public Class GUI
     Private Sub ComboBox_Warframes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox_Warframes.SelectedIndexChanged
         If ComboBox_Warframes.SelectedIndex > 0 Then
             Selected_Warframe = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes\" & ComboBox_Warframes.SelectedItem.ToLower() & ".json"))
+
+            Warframe_VariantSelection.AvailableVariants = "base"
             If TypeOf Selected_Warframe.SelectToken("variants.prime", errorWhenNoMatch:=False) Is Object Then
-                CheckBox_isPrime.Enabled = True
-            Else
-                CheckBox_isPrime.Enabled = False
+                Warframe_VariantSelection.AvailableVariants = "prime"
             End If
             If TypeOf Selected_Warframe.SelectToken("variants.umbra", errorWhenNoMatch:=False) Is Object Then
-                CheckBox_isUmbra.Enabled = True
-            Else
-                CheckBox_isUmbra.Enabled = False
+                Warframe_VariantSelection.AvailableVariants = "umbra"
             End If
+            If TypeOf Selected_Warframe.SelectToken("variants.prime", errorWhenNoMatch:=False) Is Object And TypeOf Selected_Warframe.SelectToken("variants.umbra", errorWhenNoMatch:=False) Is Object Then
+                Warframe_VariantSelection.AvailableVariants = "prime_umbra"
+            End If
+
             SelectedVariantChanged()
         Else
+            Warframe_VariantSelection.AvailableVariants = "base"
+            Warframe_VariantSelection.SelectedVariant = "base"
             Selected_Warframe = Nothing
             Warframe_Stats = Nothing
-            CheckBox_isPrime.Enabled = False
-            CheckBox_isUmbra.Enabled = False
             TextBox_Armor.Text = "-"
             TextBox_Health.Text = "-"
             TextBox_Shield.Text = "-"
@@ -49,37 +68,6 @@ Public Class GUI
             TextBox_PowerStrength.Text = "-"
             TextBox_EffectiveHealth.Text = "-"
         End If
-    End Sub
-
-    Public Sub CheckBox_isPrime_isUmbra_CheckedChanged(sender As Object, e As EventArgs)
-        '
-        '   Enable Swapping between Normal / Prime / Umbra Frames
-        '   
-        '   Checks for State are inverted because .net gets the state info
-        '   from after the click (makes sense)
-        '
-        RemoveHandler CheckBox_isPrime.CheckedChanged, AddressOf CheckBox_isPrime_isUmbra_CheckedChanged
-        RemoveHandler CheckBox_isUmbra.CheckedChanged, AddressOf CheckBox_isPrime_isUmbra_CheckedChanged
-        Dim Prime As CheckBox = Controls("CheckBox_isPrime")
-        Dim Umbra As CheckBox = Controls("CheckBox_isUmbra")
-        If sender.Name = Prime.Name Then
-            If Not Prime.Checked Then
-                Prime.Checked = False
-            Else
-                Prime.Checked = True
-                Umbra.Checked = False
-            End If
-        ElseIf sender.Name = Umbra.Name Then
-            If Not Umbra.Checked Then
-                Umbra.Checked = False
-            Else
-                Umbra.Checked = True
-                Prime.Checked = False
-            End If
-        End If
-        AddHandler CheckBox_isPrime.CheckedChanged, AddressOf CheckBox_isPrime_isUmbra_CheckedChanged
-        AddHandler CheckBox_isUmbra.CheckedChanged, AddressOf CheckBox_isPrime_isUmbra_CheckedChanged
-        SelectedVariantChanged()
     End Sub
 
     Private Function getRankedStat(ByVal Stat As String)
@@ -123,9 +111,9 @@ Public Class GUI
     End Function
 
     Private Sub SelectedVariantChanged()
-        If CheckBox_isPrime.Checked And CheckBox_isPrime.Enabled Then
+        If Warframe_VariantSelection.AvailableVariants.Contains("prime") And Warframe_VariantSelection.SelectedVariant = "prime" Then
             Warframe_Stats = Selected_Warframe.SelectToken("variants.prime")
-        ElseIf CheckBox_isUmbra.Checked And CheckBox_isUmbra.Enabled Then
+        ElseIf Warframe_VariantSelection.AvailableVariants.Contains("umbra") And Warframe_VariantSelection.SelectedVariant = "umbra" Then
             Warframe_Stats = Selected_Warframe.SelectToken("variants.umbra")
         Else
             Warframe_Stats = Selected_Warframe.SelectToken("variants.base")
@@ -137,8 +125,11 @@ Public Class GUI
         TextBox_PowerStrength.Text = getRankedStat("strength")
     End Sub
 
-    Private Sub GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub EHP_Calculator_with_GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     End Sub
 
+    Private Sub Warframe_VariantSelection_SelectedVariantChanged(sender As Object, e As EventArgs) Handles Warframe_VariantSelection.SelectedVariantChanged
+        SelectedVariantChanged()
+    End Sub
 
 End Class
