@@ -1,4 +1,6 @@
-﻿Public Class VariantSelection
+﻿Imports System.ComponentModel
+
+Public Class VariantSelection
 
     Public Sub New()
 
@@ -16,6 +18,7 @@
     Private __SelectedVariant As String = "base"
     Private __AvailableVariants As String = "base"
 
+    <Browsable(False)>
     Public Property SelectedVariant As String
         Get
             Return __SelectedVariant
@@ -35,6 +38,7 @@
         End Set
     End Property
 
+    <Browsable(False)>
     Public Property AvailableVariants As String
         Get
             Return __AvailableVariants

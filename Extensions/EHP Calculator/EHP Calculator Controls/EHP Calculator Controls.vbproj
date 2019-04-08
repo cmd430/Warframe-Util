@@ -70,6 +70,27 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ability Inputs\DamageReductionCharges.Designer.vb">
+      <DependentUpon>DamageReductionCharges.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ability Inputs\DamageReductionCharges.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Ability Inputs\DamageReduction.Designer.vb">
+      <DependentUpon>DamageReduction.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ability Inputs\DamageReduction.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CheckedGroupBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General Inputs\StatBox.Designer.vb">
+      <DependentUpon>StatBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="General Inputs\StatBox.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
@@ -93,6 +114,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Ability Inputs\DamageReductionCharges.resx">
+      <DependentUpon>DamageReductionCharges.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ability Inputs\DamageReduction.resx">
+      <DependentUpon>DamageReduction.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General Inputs\StatBox.resx">
+      <DependentUpon>StatBox.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>

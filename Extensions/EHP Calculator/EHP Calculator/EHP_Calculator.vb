@@ -26,24 +26,31 @@ Public Class EHP_Calculator
     End Function
 
     Private Warframes As JObject = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes.json"))
-    Private Selected_Warframe As JObject = Nothing
-    Private Warframe_Stats As JObject = Nothing
-    Private Rank_Bonuses As JObject = Warframes("rank")
+    Private Warframe As New Dictionary(Of String, JObject) From {
+        {"stats", Nothing},
+        {"overides", Nothing},
+        {"rank_multipliers", Warframes("rank")}
+    }
 
     Private Sub New()
         InitializeComponent()
 
+        AddHandler ComboBox_Warframes.SelectedIndexChanged, AddressOf SelectedWarframeChanged           ' Warframe Changed
+        AddHandler Warframe_VariantSelection.SelectedVariantChanged, AddressOf SelectedWarframeChanged  ' Variant Changed
+
         ComboBox_Warframes.SelectedIndex = 0
-        For Each Warframe In Warframes("warframes")
-            'Populate combobox with each warframe
-            ComboBox_Warframes.Items.Add(ToTitleCase(Warframe))
+        For Each _Warframe In Warframes("warframes") 'Populate combobox with each warframe
+            ComboBox_Warframes.Items.Add(ToTitleCase(_Warframe))
         Next
     End Sub
 
-    Private Sub ComboBox_Warframes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox_Warframes.SelectedIndexChanged
+    Private Sub SelectedWarframeChanged(sender As Object, e As EventArgs)
         If ComboBox_Warframes.SelectedIndex > 0 Then
-            Selected_Warframe = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes\" & ComboBox_Warframes.SelectedItem.ToLower() & ".json"))
 
+            ' Load Data for Selected Warframe
+            Dim Selected_Warframe = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes\" & ComboBox_Warframes.SelectedItem.ToLower() & ".json"))
+
+            ' Enable Variant Selection for Warframe Type (Base/Prime/Umbra)
             Warframe_VariantSelection.AvailableVariants = "base"
             If TypeOf Selected_Warframe.SelectToken("variants.prime", errorWhenNoMatch:=False) Is Object Then
                 Warframe_VariantSelection.AvailableVariants = "prime"
@@ -55,81 +62,45 @@ Public Class EHP_Calculator
                 Warframe_VariantSelection.AvailableVariants = "prime_umbra"
             End If
 
-            SelectedVariantChanged()
+            ' Set the Current Base Stats to Selected Variants
+            If Warframe_VariantSelection.AvailableVariants.Contains("prime") And Warframe_VariantSelection.SelectedVariant = "prime" Then
+                Warframe("stats") = Selected_Warframe.SelectToken("variants.prime")
+            ElseIf Warframe_VariantSelection.AvailableVariants.Contains("umbra") And Warframe_VariantSelection.SelectedVariant = "umbra" Then
+                Warframe("stats") = Selected_Warframe.SelectToken("variants.umbra")
+            Else
+                Warframe("stats") = Selected_Warframe.SelectToken("variants.base")
+            End If
+
+            ' Set any Overides that may be present
+            If TypeOf Selected_Warframe.SelectToken("overrides.rank", errorWhenNoMatch:=False) Is Object Then
+                Warframe("overides") = Selected_Warframe.SelectToken("overrides.rank")
+            Else
+                Warframe("overides") = Nothing
+            End If
+
+            ' Display Stats in StatBoxs
+            StatBox_Armor.Value = GetRankedStat(Warframe, "armor")
+            StatBox_Health.Value = GetRankedStat(Warframe, "health")
+            StatBox_Shield.Value = GetRankedStat(Warframe, "shield")
+            StatBox_Energy.Value = GetRankedStat(Warframe, "energy")
+            StatBox_PowerStrength.Value = GetRankedStat(Warframe, "strength")
+            StatBox_EffectiveHealth.Value = GetEffectiveHealth(Warframe)
         Else
+            ' No Warframe is Selected, Reset
             Warframe_VariantSelection.AvailableVariants = "base"
             Warframe_VariantSelection.SelectedVariant = "base"
-            Selected_Warframe = Nothing
-            Warframe_Stats = Nothing
-            TextBox_Armor.Text = "-"
-            TextBox_Health.Text = "-"
-            TextBox_Shield.Text = "-"
-            TextBox_Energy.Text = "-"
-            TextBox_PowerStrength.Text = "-"
-            TextBox_EffectiveHealth.Text = "-"
+            Warframe("stats") = Nothing
+            Warframe("overides") = Nothing
+            StatBox_Armor.Value = Nothing
+            StatBox_Health.Value = Nothing
+            StatBox_Shield.Value = Nothing
+            StatBox_Energy.Value = Nothing
+            StatBox_PowerStrength.Value = Nothing
+            StatBox_EffectiveHealth.Value = Nothing
         End If
-    End Sub
-
-    Private Function getRankedStat(ByVal Stat As String)
-        Dim res As Decimal = 0
-        If Stat = "armor" Then
-            If TypeOf Selected_Warframe.SelectToken("overrides.rank.armor", errorWhenNoMatch:=False) Is Object Then
-                res = CType(Warframe_Stats("armor"), Decimal) * CType(Selected_Warframe.SelectToken("overrides.rank.armor"), Decimal)
-            Else
-                res = CType(Warframe_Stats("armor"), Decimal) * CType(Rank_Bonuses("armor"), Decimal)
-            End If
-        End If
-        If Stat = "health" Then
-            If TypeOf Selected_Warframe.SelectToken("overrides.rank.health", errorWhenNoMatch:=False) Is Object Then
-                res = CType(Warframe_Stats("health"), Decimal) * CType(Selected_Warframe.SelectToken("overrides.rank.health"), Decimal)
-            Else
-                res = CType(Warframe_Stats("health"), Decimal) * CType(Rank_Bonuses("health"), Decimal)
-            End If
-        End If
-        If Stat = "shield" Then
-            If TypeOf Selected_Warframe.SelectToken("overrides.rank.shield", errorWhenNoMatch:=False) Is Object Then
-                res = CType(Warframe_Stats("shield"), Decimal) * CType(Selected_Warframe.SelectToken("overrides.rank.shield"), Decimal)
-            Else
-                res = CType(Warframe_Stats("shield"), Decimal) * CType(Rank_Bonuses("shield"), Decimal)
-            End If
-        End If
-        If Stat = "energy" Then
-            If TypeOf Selected_Warframe.SelectToken("overrides.rank.energy", errorWhenNoMatch:=False) Is Object Then
-                res = CType(Warframe_Stats("energy"), Decimal) * CType(Selected_Warframe.SelectToken("overrides.rank.energy"), Decimal)
-            Else
-                res = CType(Warframe_Stats("energy"), Decimal) * CType(Rank_Bonuses("energy"), Decimal)
-            End If
-        End If
-        If Stat = "strength" Then
-            If TypeOf Selected_Warframe.SelectToken("overrides.rank.strength", errorWhenNoMatch:=False) Is Object Then
-                res = CType(Warframe_Stats("strength"), Decimal) * CType(Selected_Warframe.SelectToken("overrides.rank.strength"), Decimal)
-            Else
-                res = CType(Warframe_Stats("strength"), Decimal) * CType(Rank_Bonuses("strength"), Decimal)
-            End If
-        End If
-        Return Math.Round(res)
-    End Function
-
-    Private Sub SelectedVariantChanged()
-        If Warframe_VariantSelection.AvailableVariants.Contains("prime") And Warframe_VariantSelection.SelectedVariant = "prime" Then
-            Warframe_Stats = Selected_Warframe.SelectToken("variants.prime")
-        ElseIf Warframe_VariantSelection.AvailableVariants.Contains("umbra") And Warframe_VariantSelection.SelectedVariant = "umbra" Then
-            Warframe_Stats = Selected_Warframe.SelectToken("variants.umbra")
-        Else
-            Warframe_Stats = Selected_Warframe.SelectToken("variants.base")
-        End If
-        TextBox_Armor.Text = getRankedStat("armor")
-        TextBox_Health.Text = getRankedStat("health")
-        TextBox_Shield.Text = getRankedStat("shield")
-        TextBox_Energy.Text = getRankedStat("energy")
-        TextBox_PowerStrength.Text = getRankedStat("strength")
     End Sub
 
     Private Sub EHP_Calculator_with_GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-    End Sub
-
-    Private Sub Warframe_VariantSelection_SelectedVariantChanged(sender As Object, e As EventArgs) Handles Warframe_VariantSelection.SelectedVariantChanged
-        SelectedVariantChanged()
     End Sub
 
 End Class

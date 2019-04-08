@@ -108,6 +108,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Utils\MathUtils.vb" />
+    <Compile Include="Utils\StatUtils.vb" />
     <Compile Include="Utils\StringUtils.vb" />
   </ItemGroup>
   <ItemGroup>
