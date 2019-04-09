@@ -1,18 +1,28 @@
 ﻿Imports System.ComponentModel
 
 Public Class StatBox
+    Inherits UserControl
 
-    Private __currentLabel As String = "StatLabel"
+    Private __currentText As String = ""
     Private __currentValue As Decimal = 0
 
+    Public Sub New()
+        InitializeComponent()
+        Text = Name
+    End Sub
+
+    <EditorBrowsable(EditorBrowsableState.Always)>
+    <Browsable(True)>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
+    <Bindable(True)>
     <Category("Appearance")>
-    Public Property Label As String
+    Public Overrides Property Text As String
         Get
-            Return __currentLabel
+            Return __currentText
         End Get
         Set(value As String)
-            __currentLabel = value
-            StatLabel.Text = __currentLabel & ":"
+            __currentText = value
+            StatLabel.Text = __currentText & ":"
         End Set
     End Property
 

@@ -53,7 +53,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +83,18 @@
     </Compile>
     <Compile Include="CheckedGroupBox.vb">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General Inputs\CheckedInput.Designer.vb">
+      <DependentUpon>CheckedInput.vb</DependentUpon>
+    </Compile>
+    <Compile Include="General Inputs\CheckedInput.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="General Inputs\RadioInput.Designer.vb">
+      <DependentUpon>RadioInput.vb</DependentUpon>
+    </Compile>
+    <Compile Include="General Inputs\RadioInput.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="General Inputs\StatBox.Designer.vb">
       <DependentUpon>StatBox.vb</DependentUpon>
@@ -119,6 +130,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ability Inputs\DamageReduction.resx">
       <DependentUpon>DamageReduction.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General Inputs\CheckedInput.resx">
+      <DependentUpon>CheckedInput.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General Inputs\RadioInput.resx">
+      <DependentUpon>RadioInput.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="General Inputs\StatBox.resx">
       <DependentUpon>StatBox.vb</DependentUpon>

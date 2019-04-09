@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 
 Public Class VariantSelection
+    Inherits UserControl
 
     Public Sub New()
 
