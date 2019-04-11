@@ -6,7 +6,7 @@ Public Class RadioInput
     Private __checkedValue As Boolean = False
     Private __currentText As String = ""
     Private __currentValue As Integer = 0
-    Private __maxValue As Integer = 0
+    Private __maxValue As Integer = 5
     Private __minValue As Integer = 0
     Private __incrementValue As Integer = 1
 
@@ -19,7 +19,7 @@ Public Class RadioInput
     <Browsable(True)>
     <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
     <Bindable(True)>
-    <Category("Appearance")>
+    <Category("!Properties")>
     Public Overrides Property Text As String
         Get
             Return __currentText
@@ -30,17 +30,18 @@ Public Class RadioInput
         End Set
     End Property
 
-    <Category("Appearance")>
+    <Category("!Properties")>
+    <DefaultValue(False)>
+    <Browsable(True)>
     Public Property Checked As Boolean
         Get
             Return __checkedValue
         End Get
-        Set(value As Boolean)
-            __checkedValue = value
+        Set(ByVal Value As Boolean)
+            __checkedValue = Value
             RadioButton1.Checked = __checkedValue
         End Set
     End Property
-
     Public Event CheckedChanged As EventHandler
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
         Checked = sender.Checked
@@ -60,46 +61,54 @@ Public Class RadioInput
         RaiseEvent CheckedChanged(sender, e)
     End Sub
 
-    <Category("Data")>
+    <Category("!Properties")>
+    <DefaultValue(5)>
+    <Browsable(True)>
     Public Property Maximum As Integer
         Get
             Return __maxValue
         End Get
-        Set(value As Integer)
-            __maxValue = value
+        Set(ByVal Value As Integer)
+            __maxValue = Value
             NumericUpDown1.Maximum = __maxValue
         End Set
     End Property
 
-    <Category("Data")>
+    <Category("!Properties")>
+    <DefaultValue(0)>
+    <Browsable(True)>
     Public Property Minimum As Integer
         Get
             Return __minValue
         End Get
-        Set(value As Integer)
-            __minValue = value
+        Set(ByVal Value As Integer)
+            __minValue = Value
             NumericUpDown1.Minimum = __minValue
         End Set
     End Property
 
-    <Category("Data")>
+    <Category("!Properties")>
+    <DefaultValue(1)>
+    <Browsable(True)>
     Public Property Increment As Integer
         Get
             Return __incrementValue
         End Get
-        Set(value As Integer)
-            __incrementValue = value
+        Set(ByVal Value As Integer)
+            __incrementValue = Value
             NumericUpDown1.Increment = __incrementValue
         End Set
     End Property
 
-    <Category("Appearance")>
+    <Category("!Properties")>
+    <DefaultValue(0)>
+    <Browsable(True)>
     Public Property Value As Integer
         Get
             Return __currentValue
         End Get
-        Set(value As Integer)
-            __currentValue = value
+        Set(ByVal Value As Integer)
+            __currentValue = Value
             NumericUpDown1.Value = __currentValue
         End Set
     End Property

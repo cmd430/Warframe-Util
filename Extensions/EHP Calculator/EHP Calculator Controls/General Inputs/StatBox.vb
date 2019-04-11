@@ -15,38 +15,47 @@ Public Class StatBox
     <Browsable(True)>
     <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
     <Bindable(True)>
-    <Category("Appearance")>
+    <Category("!Properties")>
     Public Overrides Property Text As String
         Get
             Return __currentText
         End Get
-        Set(value As String)
-            __currentText = value
+        Set(ByVal Value As String)
+            __currentText = Value
             StatLabel.Text = __currentText & ":"
         End Set
     End Property
 
-    <Category("Behavior")>
-    Public Property Rounding As String = "down"
+    <TypeConverter(GetType(EnumConverter))>
+    Public Enum RoundingValues
+        None
+        Floor
+        Ceiling
+    End Enum
+    <Category("!Properties")>
+    <DefaultValue(RoundingValues.Floor)>
+    <Browsable(True)>
+    Public Property Rounding As New RoundingValues
 
-    <Category("Appearance")>
+    <Category("!Properties")>
+    <DefaultValue(0)>
+    <Browsable(False)>
     Public Property Value As String
         Get
             Return __currentValue
         End Get
-        Set(value As String)
-            __currentValue = value
+        Set(ByVal Value As String)
+            __currentValue = Value
             If __currentValue = Nothing Then
                 StatValue.Text = "-"
             Else
-                If Rounding = "down" Then
-                    StatValue.Text = Math.Floor(__currentValue)
-                ElseIf Rounding = "up" Then
-                    StatValue.Text = Math.Ceiling(__currentValue)
-                Else
+                If Rounding = RoundingValues.None Then
                     StatValue.Text = __currentValue
+                ElseIf Rounding = RoundingValues.Floor Then
+                    StatValue.Text = Math.Floor(__currentValue)
+                ElseIf Rounding = RoundingValues.Ceiling Then
+                    StatValue.Text = Math.Ceiling(__currentValue)
                 End If
-
             End If
         End Set
     End Property
