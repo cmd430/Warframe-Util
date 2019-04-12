@@ -41,7 +41,7 @@ Partial Class RadioInput
         'NumericUpDown1
         '
         Me.NumericUpDown1.Location = New System.Drawing.Point(122, 0)
-        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {0, 0, 0, 0})
+        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {5, 0, 0, 0})
         Me.NumericUpDown1.Name = "NumericUpDown1"
         Me.NumericUpDown1.Size = New System.Drawing.Size(53, 20)
         Me.NumericUpDown1.TabIndex = 1

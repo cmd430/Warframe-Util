@@ -1,9 +1,12 @@
-﻿Module StringUtils
+﻿Imports System.Runtime.CompilerServices
+
+Module StringUtils
 
     '
     '   Functions to Manipulate Strings
     '
-
+    <DebuggerStepThrough()>
+    <Extension()>
     Public Function ToTitleCase(ByVal str As String) As String
         Dim res As String = ""
         For Each word In str.Split(" ")

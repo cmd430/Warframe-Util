@@ -3,9 +3,6 @@
 Public Class StatBox
     Inherits UserControl
 
-    Private __currentText As String = ""
-    Private __currentValue As Decimal = 0
-
     Public Sub New()
         InitializeComponent()
         Text = Name
@@ -18,11 +15,10 @@ Public Class StatBox
     <Category("!Properties")>
     Public Overrides Property Text As String
         Get
-            Return __currentText
+            Return StatLabel.Text.TrimEnd(":")
         End Get
         Set(ByVal Value As String)
-            __currentText = Value
-            StatLabel.Text = __currentText & ":"
+            StatLabel.Text = Value & ":"
         End Set
     End Property
 
@@ -42,19 +38,22 @@ Public Class StatBox
     <Browsable(False)>
     Public Property Value As String
         Get
-            Return __currentValue
+            If StatValue.Text = "-" Then
+                Return 0
+            Else
+                Return StatValue.Text
+            End If
         End Get
         Set(ByVal Value As String)
-            __currentValue = Value
-            If __currentValue = Nothing Then
+            If Value = Nothing Then
                 StatValue.Text = "-"
             Else
                 If Rounding = RoundingValues.None Then
-                    StatValue.Text = __currentValue
+                    StatValue.Text = Value
                 ElseIf Rounding = RoundingValues.Floor Then
-                    StatValue.Text = Math.Floor(__currentValue)
+                    StatValue.Text = Math.Floor(CType(Value, Decimal))
                 ElseIf Rounding = RoundingValues.Ceiling Then
-                    StatValue.Text = Math.Ceiling(__currentValue)
+                    StatValue.Text = Math.Ceiling(CType(Value, Decimal))
                 End If
             End If
         End Set

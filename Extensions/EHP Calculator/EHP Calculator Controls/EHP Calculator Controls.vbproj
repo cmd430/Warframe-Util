@@ -106,10 +106,22 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="VariantSelection.vb">
+    <Compile Include="Unique Inputs\CheckedDualInput.Designer.vb">
+      <DependentUpon>CheckedDualInput.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Unique Inputs\CheckedDualInput.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="VariantSelection.Designer.vb">
+    <Compile Include="Unique Inputs\MaxValueToggle.Designer.vb">
+      <DependentUpon>MaxValueToggle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Unique Inputs\MaxValueToggle.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Unique Inputs\VariantSelection.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Unique Inputs\VariantSelection.Designer.vb">
       <DependentUpon>VariantSelection.vb</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -146,7 +158,13 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="VariantSelection.resx">
+    <EmbeddedResource Include="Unique Inputs\CheckedDualInput.resx">
+      <DependentUpon>CheckedDualInput.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Unique Inputs\MaxValueToggle.resx">
+      <DependentUpon>MaxValueToggle.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Unique Inputs\VariantSelection.resx">
       <DependentUpon>VariantSelection.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

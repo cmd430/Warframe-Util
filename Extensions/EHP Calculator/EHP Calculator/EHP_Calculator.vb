@@ -3,6 +3,7 @@ Imports System.Windows.Forms
 Imports System.ComponentModel.Composition
 Imports Newtonsoft.Json.Linq
 Imports MEFContracts.Interfaces
+Imports EHP_Calculator_Controls
 
 <Export(GetType(IMethods))>
 <ExportMetadata("Name", "EHP Calculator")>
@@ -14,6 +15,9 @@ Public Class EHP_Calculator
 
     <Import(GetType(ISettings))>
     Public Settings As ISettings
+
+    <Import(GetType(ILogging))>
+    Public Log As ILogging
 
     Public Function Init() As Object Implements IMethods.Init
         With Me
@@ -31,6 +35,10 @@ Public Class EHP_Calculator
         {"overides", Nothing},
         {"rank_multipliers", Warframes("rank")}
     }
+    Private Mods As New Dictionary(Of String, Dictionary(Of String, JToken)) From {
+        {"auras", New Dictionary(Of String, JToken)},
+        {"survivability", New Dictionary(Of String, JToken)}
+    }
 
     Private Sub New()
         InitializeComponent()
@@ -42,6 +50,46 @@ Public Class EHP_Calculator
         For Each _Warframe In Warframes("warframes") 'Populate combobox with each warframe
             ComboBox_Warframes.Items.Add(ToTitleCase(_Warframe))
         Next
+
+        ' Add mods
+        For Each group As String In Mods.Keys
+            Try
+                For Each [mod] As JToken In JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\mods\" & group & ".json"))("mods")
+                    Mods(group)([mod]("name")) = [mod]("params")
+                    Dim modControl As Control = Nothing
+                    Select Case [mod].SelectToken("params.type")
+                        Case "radio"
+                            modControl = New RadioInput With {
+                                .Name = [mod]("name"),
+                                .Text = ToTitleCase([mod]("name"))
+                            }
+                        Case "checked"
+                            modControl = New CheckedInput With {
+                                .Name = [mod]("name"),
+                                .Text = ToTitleCase([mod]("name"))
+                            }
+                        Case "checked_dual"
+                            modControl = New CheckedDualInput With {
+                                .Name = [mod]("name"),
+                                .Text = ToTitleCase([mod]("name")),
+                                .Secondary_Text = ToTitleCase([mod].SelectToken("params.charges.label"))
+                            }
+                    End Select
+                    Controls.Find("CheckedGroupBox_" & group, True).FirstOrDefault.Controls.Add(modControl)
+                Next
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Failed to Load '" & group & "' Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        Next
+    End Sub
+
+    Private Sub EHP_Calculator_with_GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'Set/Get from User Prefs
+        MaxValueToggle1.Checked = Settings.GetValue("user_prefs", "default_max", False)
+        AddHandler MaxValueToggle1.CheckedChanged, Function() Settings.SetValue("user_prefs", "default_max", True)
+
+        'debug
+        Log.Write(DumpMods)
     End Sub
 
     Private Sub SelectedWarframeChanged(sender As Object, e As EventArgs)
@@ -100,7 +148,22 @@ Public Class EHP_Calculator
         End If
     End Sub
 
-    Private Sub EHP_Calculator_with_GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-    End Sub
+    Private Function DumpMods() As String
+        '
+        '   DEBUG FUNCTION
+        '
+        Dim msg As String = "{" & vbCrLf
+        For Each t In Mods
+            msg = msg & "   """ & t.Key & """: " & "["
+            For Each tt In t.Value
+                Dim params As String = tt.Value.ToString
+                params = System.Text.RegularExpressions.Regex.Replace(params, "\r\n", vbCrLf & "        ")
+                msg = msg & vbCrLf & "      """ & tt.Key & """: " & params & ","
+            Next
+            msg = msg.TrimEnd(",") & vbCrLf & "   ]," & vbCrLf
+        Next
+        msg = msg.TrimEnd(",") & vbCrLf & "}"
+        Return msg
+    End Function
 
 End Class

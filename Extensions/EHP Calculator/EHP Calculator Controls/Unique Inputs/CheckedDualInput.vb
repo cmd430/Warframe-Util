@@ -1,6 +1,6 @@
 ﻿Imports System.ComponentModel
 
-Public Class RadioInput
+Public Class CheckedDualInput
     Inherits UserControl
 
     Public Sub New()
@@ -15,10 +15,22 @@ Public Class RadioInput
     <Category("!Properties")>
     Public Overrides Property Text As String
         Get
-            Return RadioButton1.Text.TrimEnd(":")
+            Return CheckBox1.Text.TrimEnd(":")
         End Get
         Set(ByVal Value As String)
-            RadioButton1.Text = Value & ":"
+            CheckBox1.Text = Value & ":"
+        End Set
+    End Property
+
+    <Category("!Properties")>
+    <DefaultValue("")>
+    <Browsable(True)>
+    Public Property Secondary_Text As String
+        Get
+            Return Label1.Text
+        End Get
+        Set(ByVal Value As String)
+            Label1.Text = Value & ":"
         End Set
     End Property
 
@@ -27,15 +39,15 @@ Public Class RadioInput
     <Browsable(True)>
     Public Property Checked As Boolean
         Get
-            Return RadioButton1.Checked
+            Return CheckBox1.Checked
         End Get
         Set(ByVal Value As Boolean)
-            RadioButton1.Checked = Value
+            CheckBox1.Checked = Value
         End Set
     End Property
 
     <Category("!Properties")>
-    <DefaultValue(5)>
+    <DefaultValue(10)>
     <Browsable(True)>
     Public Property Maximum As Integer
         Get
@@ -82,29 +94,68 @@ Public Class RadioInput
         End Set
     End Property
 
+    <Category("!Properties")>
+    <DefaultValue(5)>
+    <Browsable(True)>
+    Public Property Secondary_Maximum As Integer
+        Get
+            Return NumericUpDown2.Maximum
+        End Get
+        Set(ByVal Value As Integer)
+            NumericUpDown2.Maximum = Value
+        End Set
+    End Property
+
+    <Category("!Properties")>
+    <DefaultValue(0)>
+    <Browsable(True)>
+    Public Property Secondary_Minimum As Integer
+        Get
+            Return NumericUpDown2.Minimum
+        End Get
+        Set(ByVal Value As Integer)
+            NumericUpDown2.Minimum = Value
+        End Set
+    End Property
+
+    <Category("!Properties")>
+    <DefaultValue(1)>
+    <Browsable(True)>
+    Public Property Secondary_Increment As Integer
+        Get
+            Return NumericUpDown2.Increment
+        End Get
+        Set(ByVal Value As Integer)
+            NumericUpDown2.Increment = Value
+        End Set
+    End Property
+
+    <Category("!Properties")>
+    <DefaultValue(0)>
+    <Browsable(True)>
+    Public Property Secondary_Value As Integer
+        Get
+            Return NumericUpDown2.Value
+        End Get
+        Set(ByVal Value As Integer)
+            NumericUpDown2.Value = Value
+        End Set
+    End Property
+
+
 #Region "Events"
 
     Public Event CheckedChanged As EventHandler
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs)
         Checked = sender.Checked
-        If Checked Then
-            Dim parentControl As Control = Parent
-            If parentControl Is Nothing Then Return
-            For Each childControl As Control In parentControl.Controls
-                If TypeOf childControl Is RadioInput Then
-                    If Not childControl.Equals(Me) Then
-                        TryCast(childControl, RadioInput).Checked = False
-                    Else
-                        RadioButton1.Checked = True
-                    End If
-                End If
-            Next
-        End If
         RaiseEvent CheckedChanged(sender, e)
     End Sub
 
     Public Event ValueChanged As EventHandler
-    Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
+    Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs)
+        RaiseEvent ValueChanged(sender, e)
+    End Sub
+    Private Sub NumericUpDown2_ValueChanged(sender As Object, e As EventArgs)
         RaiseEvent ValueChanged(sender, e)
     End Sub
 

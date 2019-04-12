@@ -16,4 +16,8 @@
         Function SetValue(ByVal Section As String, ByVal ParamName As String, ByVal ParamValue As String) As Boolean
     End Interface
 
+    Public Interface ILogging
+        Function Write(ByVal Message As String, Optional ByVal Append As Boolean = False) As Boolean
+    End Interface
+
 End Class

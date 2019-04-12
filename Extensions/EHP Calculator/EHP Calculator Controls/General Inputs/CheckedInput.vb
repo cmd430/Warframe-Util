@@ -3,13 +3,6 @@
 Public Class CheckedInput
     Inherits UserControl
 
-    Private __checkedValue As Boolean = False
-    Private __currentText As String = ""
-    Private __currentValue As Integer = 0
-    Private __maxValue As Integer = 10
-    Private __minValue As Integer = 0
-    Private __incrementValue As Integer = 1
-
     Public Sub New()
         InitializeComponent()
         Text = Name
@@ -22,11 +15,10 @@ Public Class CheckedInput
     <Category("!Properties")>
     Public Overrides Property Text As String
         Get
-            Return __currentText
+            Return CheckBox1.Text.TrimEnd(":")
         End Get
         Set(ByVal Value As String)
-            __currentText = Value
-            CheckBox1.Text = __currentText & ":"
+            CheckBox1.Text = Value & ":"
         End Set
     End Property
 
@@ -35,29 +27,22 @@ Public Class CheckedInput
     <Browsable(True)>
     Public Property Checked As Boolean
         Get
-            Return __checkedValue
+            Return CheckBox1.Checked
         End Get
         Set(ByVal Value As Boolean)
-            __checkedValue = Value
-            CheckBox1.Checked = __checkedValue
+            CheckBox1.Checked = Value
         End Set
     End Property
-    Public Event CheckedChanged As EventHandler
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
-        Checked = sender.Checked
-        RaiseEvent CheckedChanged(sender, e)
-    End Sub
 
     <Category("!Properties")>
     <DefaultValue(10)>
     <Browsable(True)>
     Public Property Maximum As Integer
         Get
-            Return __maxValue
+            Return NumericUpDown1.Maximum
         End Get
         Set(ByVal Value As Integer)
-            __maxValue = Value
-            NumericUpDown1.Maximum = __maxValue
+            NumericUpDown1.Maximum = Value
         End Set
     End Property
 
@@ -66,11 +51,10 @@ Public Class CheckedInput
     <Browsable(True)>
     Public Property Minimum As Integer
         Get
-            Return __minValue
+            Return NumericUpDown1.Minimum
         End Get
         Set(ByVal Value As Integer)
-            __minValue = Value
-            NumericUpDown1.Minimum = __minValue
+            NumericUpDown1.Minimum = Value
         End Set
     End Property
 
@@ -79,11 +63,10 @@ Public Class CheckedInput
     <Browsable(True)>
     Public Property Increment As Integer
         Get
-            Return __incrementValue
+            Return NumericUpDown1.Increment
         End Get
         Set(ByVal Value As Integer)
-            __incrementValue = Value
-            NumericUpDown1.Increment = __incrementValue
+            NumericUpDown1.Increment = Value
         End Set
     End Property
 
@@ -92,12 +75,26 @@ Public Class CheckedInput
     <Browsable(True)>
     Public Property Value As Integer
         Get
-            Return __currentValue
+            Return NumericUpDown1.Value
         End Get
         Set(ByVal Value As Integer)
-            __currentValue = Value
-            NumericUpDown1.Value = __currentValue
+            NumericUpDown1.Value = Value
         End Set
     End Property
+
+#Region "Events"
+
+    Public Event CheckedChanged As EventHandler
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        Checked = sender.Checked
+        RaiseEvent CheckedChanged(sender, e)
+    End Sub
+
+    Public Event ValueChanged As EventHandler
+    Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
+        RaiseEvent ValueChanged(sender, e)
+    End Sub
+
+#End Region
 
 End Class

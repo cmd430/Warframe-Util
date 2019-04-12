@@ -3,6 +3,7 @@ Imports System.ComponentModel.Composition
 Imports System.ComponentModel.Composition.Hosting
 Imports System.IO
 Imports System.Reflection
+Imports System.Text.Encoding
 
 Public Class Warframe_PluginHost
 
@@ -73,8 +74,6 @@ Public Class Warframe_PluginHost
 
 End Class
 
-
-
 <Export(GetType(ISettings))>
 Public Class Settings
     Implements ISettings
@@ -98,6 +97,29 @@ Public Class Settings
         Dim ExtentionName As String = Assembly.GetCallingAssembly().GetName().Name.ToString()
         Dim SettingFile As String = "Data\Settings\" & ExtentionName & ".ini"
         Return WritePrivateProfileString(Section, ParamName, ParamValue, SettingFile)
+    End Function
+
+End Class
+
+<Export(GetType(ILogging))>
+Public Class Logging
+    Implements ILogging
+    '
+    ' Functions for Extentions to Write Logs
+    '
+    Public Function Write(ByVal Message As String, Optional ByVal Append As Boolean = False) As Boolean Implements ILogging.Write
+        Dim ExtentionName As String = Assembly.GetCallingAssembly().GetName().Name.ToString()
+        Dim LogFile As String = "Data\Logs\" & ExtentionName & ".log"
+        Try
+            If Append Then
+                File.AppendAllText(LogFile, Message & vbCrLf, UTF8)
+            Else
+                File.WriteAllText(LogFile, Message, UTF8)
+            End If
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
     End Function
 
 End Class

@@ -4,17 +4,10 @@ Public Class VariantSelection
     Inherits UserControl
 
     Public Sub New()
-
-        ' This call is required by the designer.
         InitializeComponent()
-
-        ' Add any initialization after the InitializeComponent() call.
         AddHandler CheckBox_Prime.CheckedChanged, AddressOf CheckedChanged
         AddHandler CheckBox_Umbra.CheckedChanged, AddressOf CheckedChanged
     End Sub
-
-
-    Public Event SelectedVariantChanged(sender As Object, e As EventArgs)
 
     Private __SelectedVariant As String = "base"
     Private __AvailableVariants As String = "base"
@@ -62,6 +55,8 @@ Public Class VariantSelection
         End Set
     End Property
 
+#Region "Events"
+    Public Event SelectedVariantChanged(sender As Object, e As EventArgs)
     Private Shadows Sub CheckedChanged(sender As Object, e As EventArgs)
         RemoveHandler CheckBox_Prime.CheckedChanged, AddressOf CheckedChanged
         RemoveHandler CheckBox_Umbra.CheckedChanged, AddressOf CheckedChanged
@@ -74,5 +69,6 @@ Public Class VariantSelection
         AddHandler CheckBox_Prime.CheckedChanged, AddressOf CheckedChanged
         AddHandler CheckBox_Umbra.CheckedChanged, AddressOf CheckedChanged
     End Sub
+#End Region
 
 End Class

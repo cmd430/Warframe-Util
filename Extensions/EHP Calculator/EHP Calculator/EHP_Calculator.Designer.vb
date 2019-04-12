@@ -24,31 +24,19 @@ Partial Class EHP_Calculator
     Private Sub InitializeComponent()
         Me.ComboBox_Warframes = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.CheckedGroupBox2 = New EHP_Calculator_Controls.CheckedGroupBox()
-        Me.CheckedInput7 = New EHP_Calculator_Controls.CheckedInput()
-        Me.CheckedInput8 = New EHP_Calculator_Controls.CheckedInput()
-        Me.CheckedInput9 = New EHP_Calculator_Controls.CheckedInput()
-        Me.CheckedInput4 = New EHP_Calculator_Controls.CheckedInput()
-        Me.CheckedInput5 = New EHP_Calculator_Controls.CheckedInput()
-        Me.CheckedInput6 = New EHP_Calculator_Controls.CheckedInput()
+        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.CheckedGroupBox_auras = New EHP_Calculator_Controls.CheckedGroupBox()
+        Me.CheckedGroupBox_survivability = New EHP_Calculator_Controls.CheckedGroupBox()
         Me.StatBox_Armor = New EHP_Calculator_Controls.StatBox()
         Me.StatBox_Health = New EHP_Calculator_Controls.StatBox()
         Me.StatBox_Shield = New EHP_Calculator_Controls.StatBox()
         Me.StatBox_EffectiveHealth = New EHP_Calculator_Controls.StatBox()
         Me.StatBox_Energy = New EHP_Calculator_Controls.StatBox()
         Me.StatBox_PowerStrength = New EHP_Calculator_Controls.StatBox()
-        Me.CheckedGroupBox_Test = New EHP_Calculator_Controls.CheckedGroupBox()
-        Me.CheckedInput3 = New EHP_Calculator_Controls.CheckedInput()
-        Me.RadioInput1 = New EHP_Calculator_Controls.RadioInput()
-        Me.CheckedInput2 = New EHP_Calculator_Controls.CheckedInput()
-        Me.RadioInput2 = New EHP_Calculator_Controls.RadioInput()
-        Me.CheckedInput1 = New EHP_Calculator_Controls.CheckedInput()
-        Me.RadioInput3 = New EHP_Calculator_Controls.RadioInput()
-        Me.CheckedGroupBox1 = New EHP_Calculator_Controls.CheckedGroupBox()
         Me.Warframe_VariantSelection = New EHP_Calculator_Controls.VariantSelection()
+        Me.MaxValueToggle1 = New EHP_Calculator_Controls.MaxValueToggle()
         Me.GroupBox1.SuspendLayout()
-        Me.CheckedGroupBox2.SuspendLayout()
-        Me.CheckedGroupBox_Test.SuspendLayout()
+        Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ComboBox_Warframes
@@ -63,97 +51,54 @@ Partial Class EHP_Calculator
         '
         'GroupBox1
         '
-        Me.GroupBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.StatBox_Armor)
         Me.GroupBox1.Controls.Add(Me.StatBox_Health)
         Me.GroupBox1.Controls.Add(Me.StatBox_Shield)
         Me.GroupBox1.Controls.Add(Me.StatBox_EffectiveHealth)
         Me.GroupBox1.Controls.Add(Me.StatBox_Energy)
         Me.GroupBox1.Controls.Add(Me.StatBox_PowerStrength)
-        Me.GroupBox1.Location = New System.Drawing.Point(602, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(602, 42)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(187, 229)
+        Me.GroupBox1.Size = New System.Drawing.Size(187, 505)
         Me.GroupBox1.TabIndex = 46
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Stats"
         '
-        'CheckedGroupBox2
+        'FlowLayoutPanel1
         '
-        Me.CheckedGroupBox2.AutoSize = True
-        Me.CheckedGroupBox2.Controls.Add(Me.CheckedInput7)
-        Me.CheckedGroupBox2.Controls.Add(Me.CheckedInput8)
-        Me.CheckedGroupBox2.Controls.Add(Me.CheckedInput9)
-        Me.CheckedGroupBox2.Controls.Add(Me.CheckedInput4)
-        Me.CheckedGroupBox2.Controls.Add(Me.CheckedInput5)
-        Me.CheckedGroupBox2.Controls.Add(Me.CheckedInput6)
-        Me.CheckedGroupBox2.Limit = 2
-        Me.CheckedGroupBox2.Limited = True
-        Me.CheckedGroupBox2.Location = New System.Drawing.Point(313, 219)
-        Me.CheckedGroupBox2.Name = "CheckedGroupBox2"
-        Me.CheckedGroupBox2.Size = New System.Drawing.Size(187, 197)
-        Me.CheckedGroupBox2.TabIndex = 46
-        Me.CheckedGroupBox2.TabStop = False
-        Me.CheckedGroupBox2.Text = "Tests Limited"
+        Me.FlowLayoutPanel1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FlowLayoutPanel1.AutoSize = True
+        Me.FlowLayoutPanel1.Controls.Add(Me.CheckedGroupBox_auras)
+        Me.FlowLayoutPanel1.Controls.Add(Me.CheckedGroupBox_survivability)
+        Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(8, 39)
+        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(588, 512)
+        Me.FlowLayoutPanel1.TabIndex = 49
         '
-        'CheckedInput7
+        'CheckedGroupBox_auras
         '
-        Me.CheckedInput7.Location = New System.Drawing.Point(6, 106)
-        Me.CheckedInput7.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput7.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput7.Name = "CheckedInput7"
-        Me.CheckedInput7.Size = New System.Drawing.Size(175, 20)
-        Me.CheckedInput7.TabIndex = 47
-        Me.CheckedInput7.Text = "CheckedInput7"
+        Me.CheckedGroupBox_auras.AutoSize = True
+        Me.CheckedGroupBox_auras.Location = New System.Drawing.Point(3, 3)
+        Me.CheckedGroupBox_auras.Name = "CheckedGroupBox_auras"
+        Me.CheckedGroupBox_auras.Size = New System.Drawing.Size(65, 35)
+        Me.CheckedGroupBox_auras.TabIndex = 38
+        Me.CheckedGroupBox_auras.TabStop = False
+        Me.CheckedGroupBox_auras.Text = "Auras"
         '
-        'CheckedInput8
+        'CheckedGroupBox_survivability
         '
-        Me.CheckedInput8.Location = New System.Drawing.Point(6, 132)
-        Me.CheckedInput8.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput8.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput8.Name = "CheckedInput8"
-        Me.CheckedInput8.Size = New System.Drawing.Size(175, 20)
-        Me.CheckedInput8.TabIndex = 46
-        Me.CheckedInput8.Text = "CheckedInput8"
-        '
-        'CheckedInput9
-        '
-        Me.CheckedInput9.Location = New System.Drawing.Point(6, 158)
-        Me.CheckedInput9.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput9.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput9.Name = "CheckedInput9"
-        Me.CheckedInput9.Size = New System.Drawing.Size(175, 20)
-        Me.CheckedInput9.TabIndex = 45
-        Me.CheckedInput9.Text = "CheckedInput9"
-        '
-        'CheckedInput4
-        '
-        Me.CheckedInput4.Location = New System.Drawing.Point(6, 28)
-        Me.CheckedInput4.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput4.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput4.Name = "CheckedInput4"
-        Me.CheckedInput4.Size = New System.Drawing.Size(175, 20)
-        Me.CheckedInput4.TabIndex = 44
-        Me.CheckedInput4.Text = "CheckedInput4"
-        '
-        'CheckedInput5
-        '
-        Me.CheckedInput5.Location = New System.Drawing.Point(6, 54)
-        Me.CheckedInput5.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput5.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput5.Name = "CheckedInput5"
-        Me.CheckedInput5.Size = New System.Drawing.Size(175, 20)
-        Me.CheckedInput5.TabIndex = 43
-        Me.CheckedInput5.Text = "CheckedInput5"
-        '
-        'CheckedInput6
-        '
-        Me.CheckedInput6.Location = New System.Drawing.Point(6, 80)
-        Me.CheckedInput6.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput6.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput6.Name = "CheckedInput6"
-        Me.CheckedInput6.Size = New System.Drawing.Size(175, 20)
-        Me.CheckedInput6.TabIndex = 42
-        Me.CheckedInput6.Text = "CheckedInput6"
+        Me.CheckedGroupBox_survivability.AutoSize = True
+        Me.CheckedGroupBox_survivability.Location = New System.Drawing.Point(3, 44)
+        Me.CheckedGroupBox_survivability.Name = "CheckedGroupBox_survivability"
+        Me.CheckedGroupBox_survivability.Size = New System.Drawing.Size(94, 35)
+        Me.CheckedGroupBox_survivability.TabIndex = 39
+        Me.CheckedGroupBox_survivability.TabStop = False
+        Me.CheckedGroupBox_survivability.Text = "Survivability"
         '
         'StatBox_Armor
         '
@@ -197,8 +142,8 @@ Partial Class EHP_Calculator
         '
         'StatBox_EffectiveHealth
         '
-        Me.StatBox_EffectiveHealth.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StatBox_EffectiveHealth.Location = New System.Drawing.Point(6, 190)
+        Me.StatBox_EffectiveHealth.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.StatBox_EffectiveHealth.Location = New System.Drawing.Point(6, 479)
         Me.StatBox_EffectiveHealth.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_EffectiveHealth.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_EffectiveHealth.Name = "StatBox_EffectiveHealth"
@@ -234,96 +179,6 @@ Partial Class EHP_Calculator
         Me.StatBox_PowerStrength.Text = "Power Strength"
         Me.StatBox_PowerStrength.Value = "0"
         '
-        'CheckedGroupBox_Test
-        '
-        Me.CheckedGroupBox_Test.AutoSize = True
-        Me.CheckedGroupBox_Test.Controls.Add(Me.CheckedInput3)
-        Me.CheckedGroupBox_Test.Controls.Add(Me.RadioInput1)
-        Me.CheckedGroupBox_Test.Controls.Add(Me.CheckedInput2)
-        Me.CheckedGroupBox_Test.Controls.Add(Me.RadioInput2)
-        Me.CheckedGroupBox_Test.Controls.Add(Me.CheckedInput1)
-        Me.CheckedGroupBox_Test.Controls.Add(Me.RadioInput3)
-        Me.CheckedGroupBox_Test.Limit = 2
-        Me.CheckedGroupBox_Test.Location = New System.Drawing.Point(103, 219)
-        Me.CheckedGroupBox_Test.Name = "CheckedGroupBox_Test"
-        Me.CheckedGroupBox_Test.Size = New System.Drawing.Size(187, 229)
-        Me.CheckedGroupBox_Test.TabIndex = 45
-        Me.CheckedGroupBox_Test.TabStop = False
-        Me.CheckedGroupBox_Test.Text = "Tests"
-        '
-        'CheckedInput3
-        '
-        Me.CheckedInput3.Location = New System.Drawing.Point(6, 190)
-        Me.CheckedInput3.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput3.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput3.Name = "CheckedInput3"
-        Me.CheckedInput3.Size = New System.Drawing.Size(175, 20)
-        Me.CheckedInput3.TabIndex = 44
-        Me.CheckedInput3.Text = "CheckedInput3"
-        '
-        'RadioInput1
-        '
-        Me.RadioInput1.Location = New System.Drawing.Point(6, 28)
-        Me.RadioInput1.Maximum = 0
-        Me.RadioInput1.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.RadioInput1.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.RadioInput1.Name = "RadioInput1"
-        Me.RadioInput1.Size = New System.Drawing.Size(175, 20)
-        Me.RadioInput1.TabIndex = 39
-        Me.RadioInput1.Text = "RadioInput1"
-        '
-        'CheckedInput2
-        '
-        Me.CheckedInput2.Location = New System.Drawing.Point(6, 164)
-        Me.CheckedInput2.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput2.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput2.Name = "CheckedInput2"
-        Me.CheckedInput2.Size = New System.Drawing.Size(175, 20)
-        Me.CheckedInput2.TabIndex = 43
-        Me.CheckedInput2.Text = "CheckedInput2"
-        '
-        'RadioInput2
-        '
-        Me.RadioInput2.Location = New System.Drawing.Point(6, 54)
-        Me.RadioInput2.Maximum = 0
-        Me.RadioInput2.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.RadioInput2.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.RadioInput2.Name = "RadioInput2"
-        Me.RadioInput2.Size = New System.Drawing.Size(175, 20)
-        Me.RadioInput2.TabIndex = 40
-        Me.RadioInput2.Text = "RadioInput2"
-        '
-        'CheckedInput1
-        '
-        Me.CheckedInput1.Location = New System.Drawing.Point(6, 138)
-        Me.CheckedInput1.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput1.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.CheckedInput1.Name = "CheckedInput1"
-        Me.CheckedInput1.Size = New System.Drawing.Size(175, 20)
-        Me.CheckedInput1.TabIndex = 42
-        Me.CheckedInput1.Text = "CheckedInput1"
-        '
-        'RadioInput3
-        '
-        Me.RadioInput3.Location = New System.Drawing.Point(6, 80)
-        Me.RadioInput3.Maximum = 0
-        Me.RadioInput3.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.RadioInput3.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.RadioInput3.Name = "RadioInput3"
-        Me.RadioInput3.Size = New System.Drawing.Size(175, 20)
-        Me.RadioInput3.TabIndex = 41
-        Me.RadioInput3.Text = "RadioInput3"
-        '
-        'CheckedGroupBox1
-        '
-        Me.CheckedGroupBox1.Limit = 2
-        Me.CheckedGroupBox1.Location = New System.Drawing.Point(12, 39)
-        Me.CheckedGroupBox1.Name = "CheckedGroupBox1"
-        Me.CheckedGroupBox1.Size = New System.Drawing.Size(187, 46)
-        Me.CheckedGroupBox1.TabIndex = 38
-        Me.CheckedGroupBox1.TabStop = False
-        Me.CheckedGroupBox1.Text = "Auras"
-        '
         'Warframe_VariantSelection
         '
         Me.Warframe_VariantSelection.AvailableVariants = "base"
@@ -335,6 +190,17 @@ Partial Class EHP_Calculator
         Me.Warframe_VariantSelection.Size = New System.Drawing.Size(121, 22)
         Me.Warframe_VariantSelection.TabIndex = 31
         '
+        'MaxValueToggle1
+        '
+        Me.MaxValueToggle1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.MaxValueToggle1.Location = New System.Drawing.Point(659, 13)
+        Me.MaxValueToggle1.MaximumSize = New System.Drawing.Size(130, 17)
+        Me.MaxValueToggle1.MinimumSize = New System.Drawing.Size(130, 17)
+        Me.MaxValueToggle1.Name = "MaxValueToggle1"
+        Me.MaxValueToggle1.Size = New System.Drawing.Size(130, 17)
+        Me.MaxValueToggle1.TabIndex = 51
+        Me.MaxValueToggle1.Text = "Default to Max Values"
+        '
         'EHP_Calculator
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -342,19 +208,16 @@ Partial Class EHP_Calculator
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.ClientSize = New System.Drawing.Size(801, 559)
-        Me.Controls.Add(Me.CheckedGroupBox2)
+        Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.CheckedGroupBox_Test)
-        Me.Controls.Add(Me.CheckedGroupBox1)
         Me.Controls.Add(Me.Warframe_VariantSelection)
         Me.Controls.Add(Me.ComboBox_Warframes)
+        Me.Controls.Add(Me.MaxValueToggle1)
         Me.Name = "EHP_Calculator"
         Me.Text = "EHP_Calculator_with_GUI"
         Me.GroupBox1.ResumeLayout(False)
-        Me.CheckedGroupBox2.ResumeLayout(False)
-        Me.CheckedGroupBox2.PerformLayout()
-        Me.CheckedGroupBox_Test.ResumeLayout(False)
-        Me.CheckedGroupBox_Test.PerformLayout()
+        Me.FlowLayoutPanel1.ResumeLayout(False)
+        Me.FlowLayoutPanel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -367,20 +230,9 @@ Partial Class EHP_Calculator
     Friend WithEvents StatBox_Energy As EHP_Calculator_Controls.StatBox
     Friend WithEvents StatBox_PowerStrength As EHP_Calculator_Controls.StatBox
     Friend WithEvents StatBox_EffectiveHealth As EHP_Calculator_Controls.StatBox
-    Friend WithEvents CheckedGroupBox1 As EHP_Calculator_Controls.CheckedGroupBox
-    Friend WithEvents RadioInput1 As EHP_Calculator_Controls.RadioInput
-    Friend WithEvents RadioInput2 As EHP_Calculator_Controls.RadioInput
-    Friend WithEvents RadioInput3 As EHP_Calculator_Controls.RadioInput
-    Friend WithEvents CheckedInput1 As EHP_Calculator_Controls.CheckedInput
-    Friend WithEvents CheckedInput2 As EHP_Calculator_Controls.CheckedInput
-    Friend WithEvents CheckedInput3 As EHP_Calculator_Controls.CheckedInput
-    Friend WithEvents CheckedGroupBox_Test As EHP_Calculator_Controls.CheckedGroupBox
     Friend WithEvents GroupBox1 As Windows.Forms.GroupBox
-    Friend WithEvents CheckedGroupBox2 As EHP_Calculator_Controls.CheckedGroupBox
-    Friend WithEvents CheckedInput7 As EHP_Calculator_Controls.CheckedInput
-    Friend WithEvents CheckedInput8 As EHP_Calculator_Controls.CheckedInput
-    Friend WithEvents CheckedInput9 As EHP_Calculator_Controls.CheckedInput
-    Friend WithEvents CheckedInput4 As EHP_Calculator_Controls.CheckedInput
-    Friend WithEvents CheckedInput5 As EHP_Calculator_Controls.CheckedInput
-    Friend WithEvents CheckedInput6 As EHP_Calculator_Controls.CheckedInput
+    Friend WithEvents FlowLayoutPanel1 As Windows.Forms.FlowLayoutPanel
+    Friend WithEvents CheckedGroupBox_auras As EHP_Calculator_Controls.CheckedGroupBox
+    Friend WithEvents CheckedGroupBox_survivability As EHP_Calculator_Controls.CheckedGroupBox
+    Friend WithEvents MaxValueToggle1 As EHP_Calculator_Controls.MaxValueToggle
 End Class
