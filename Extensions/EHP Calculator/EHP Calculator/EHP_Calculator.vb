@@ -7,7 +7,7 @@ Imports EHP_Calculator_Controls
 
 <Export(GetType(IMethods))>
 <ExportMetadata("Name", "EHP Calculator")>
-<ExportMetadata("Description", "EHP Calculator for Warframes and Compainions")>
+<ExportMetadata("Description", "EHP Calculator for Warframes")>
 <ExportMetadata("Author", "Bradley 'cmd430' Treweek")>
 <ExportMetadata("Version", "0.0.1")>
 Public Class EHP_Calculator
@@ -61,18 +61,24 @@ Public Class EHP_Calculator
                         Case "radio"
                             modControl = New RadioInput With {
                                 .Name = [mod]("name"),
-                                .Text = ToTitleCase([mod]("name"))
+                                .Text = ToTitleCase([mod]("name")),
+                                .Maximum = [mod].SelectToken("params.rank_max"),
+                                .Minimum = [mod].SelectToken("params.rank_min")
                             }
                         Case "checked"
                             modControl = New CheckedInput With {
                                 .Name = [mod]("name"),
-                                .Text = ToTitleCase([mod]("name"))
+                                .Text = ToTitleCase([mod]("name")),
+                                .Maximum = [mod].SelectToken("params.rank_max"),
+                                .Minimum = [mod].SelectToken("params.rank_min")
                             }
                         Case "checked_dual"
                             modControl = New CheckedDualInput With {
                                 .Name = [mod]("name"),
                                 .Text = ToTitleCase([mod]("name")),
-                                .Secondary_Text = ToTitleCase([mod].SelectToken("params.charges.label"))
+                                .Secondary_Text = ToTitleCase([mod].SelectToken("params.charges.label")),
+                                .Maximum = [mod].SelectToken("params.rank_max"),
+                                .Minimum = [mod].SelectToken("params.rank_min")
                             }
                     End Select
                     Controls.Find("CheckedGroupBox_" & group, True).FirstOrDefault.Controls.Add(modControl)
@@ -86,7 +92,7 @@ Public Class EHP_Calculator
     Private Sub EHP_Calculator_with_GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Set/Get from User Prefs
         MaxValueToggle1.Checked = Settings.GetValue("user_prefs", "default_max", False)
-        AddHandler MaxValueToggle1.CheckedChanged, Function() Settings.SetValue("user_prefs", "default_max", True)
+        AddHandler MaxValueToggle1.CheckedChanged, Function() Settings.SetValue("user_prefs", "default_max", MaxValueToggle1.Checked)
 
         'debug
         Log.Write(DumpMods)
