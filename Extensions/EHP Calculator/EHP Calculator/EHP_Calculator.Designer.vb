@@ -59,9 +59,9 @@ Partial Class EHP_Calculator
         Me.GroupBox1.Controls.Add(Me.StatBox_EffectiveHealth)
         Me.GroupBox1.Controls.Add(Me.StatBox_Energy)
         Me.GroupBox1.Controls.Add(Me.StatBox_PowerStrength)
-        Me.GroupBox1.Location = New System.Drawing.Point(602, 42)
+        Me.GroupBox1.Location = New System.Drawing.Point(738, 42)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(187, 505)
+        Me.GroupBox1.Size = New System.Drawing.Size(187, 581)
         Me.GroupBox1.TabIndex = 46
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Stats"
@@ -77,7 +77,7 @@ Partial Class EHP_Calculator
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(8, 39)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(588, 512)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(724, 588)
         Me.FlowLayoutPanel1.TabIndex = 49
         '
         'CheckedGroupBox_auras
@@ -108,7 +108,6 @@ Partial Class EHP_Calculator
         Me.StatBox_Armor.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Armor.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Armor.Name = "StatBox_Armor"
-        Me.StatBox_Armor.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.None
         Me.StatBox_Armor.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Armor.TabIndex = 32
         Me.StatBox_Armor.Text = "Armor"
@@ -121,7 +120,6 @@ Partial Class EHP_Calculator
         Me.StatBox_Health.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Health.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Health.Name = "StatBox_Health"
-        Me.StatBox_Health.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.None
         Me.StatBox_Health.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Health.TabIndex = 33
         Me.StatBox_Health.Text = "Health"
@@ -134,7 +132,6 @@ Partial Class EHP_Calculator
         Me.StatBox_Shield.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Shield.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Shield.Name = "StatBox_Shield"
-        Me.StatBox_Shield.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.None
         Me.StatBox_Shield.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Shield.TabIndex = 34
         Me.StatBox_Shield.Text = "Shield"
@@ -143,7 +140,7 @@ Partial Class EHP_Calculator
         'StatBox_EffectiveHealth
         '
         Me.StatBox_EffectiveHealth.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StatBox_EffectiveHealth.Location = New System.Drawing.Point(6, 479)
+        Me.StatBox_EffectiveHealth.Location = New System.Drawing.Point(6, 555)
         Me.StatBox_EffectiveHealth.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_EffectiveHealth.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_EffectiveHealth.Name = "StatBox_EffectiveHealth"
@@ -160,7 +157,6 @@ Partial Class EHP_Calculator
         Me.StatBox_Energy.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Energy.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Energy.Name = "StatBox_Energy"
-        Me.StatBox_Energy.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.None
         Me.StatBox_Energy.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Energy.TabIndex = 35
         Me.StatBox_Energy.Text = "Energy"
@@ -173,7 +169,6 @@ Partial Class EHP_Calculator
         Me.StatBox_PowerStrength.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_PowerStrength.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_PowerStrength.Name = "StatBox_PowerStrength"
-        Me.StatBox_PowerStrength.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.None
         Me.StatBox_PowerStrength.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_PowerStrength.TabIndex = 36
         Me.StatBox_PowerStrength.Text = "Power Strength"
@@ -193,7 +188,7 @@ Partial Class EHP_Calculator
         'MaxValueToggle1
         '
         Me.MaxValueToggle1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.MaxValueToggle1.Location = New System.Drawing.Point(659, 13)
+        Me.MaxValueToggle1.Location = New System.Drawing.Point(795, 13)
         Me.MaxValueToggle1.MaximumSize = New System.Drawing.Size(130, 17)
         Me.MaxValueToggle1.MinimumSize = New System.Drawing.Size(130, 17)
         Me.MaxValueToggle1.Name = "MaxValueToggle1"
@@ -207,7 +202,7 @@ Partial Class EHP_Calculator
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.ClientSize = New System.Drawing.Size(801, 559)
+        Me.ClientSize = New System.Drawing.Size(937, 635)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Warframe_VariantSelection)
