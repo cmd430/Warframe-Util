@@ -29,7 +29,7 @@ Public Class EHP_Calculator
         End With
     End Function
 
-    Private Warframes As JObject = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes.json"))
+    Private Warframes As JObject = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes\_warframes.json"))
     Private Warframe As New Dictionary(Of String, JObject) From {
         {"stats", Nothing},
         {"overides", Nothing},
@@ -37,7 +37,13 @@ Public Class EHP_Calculator
     }
     Private Mods As New Dictionary(Of String, Dictionary(Of String, JToken)) From {
         {"auras", New Dictionary(Of String, JToken)},
-        {"survivability", New Dictionary(Of String, JToken)}
+        {"survivability", New Dictionary(Of String, JToken)},
+        {"miscellaneous", New Dictionary(Of String, JToken)},
+        {"power_strength", New Dictionary(Of String, JToken)}
+    }
+    Private Misc As New Dictionary(Of String, Dictionary(Of String, JToken)) From {
+        {"arcanes", New Dictionary(Of String, JToken)},
+        {"focus", New Dictionary(Of String, JToken)}
     }
 
     Private Sub New()
@@ -51,9 +57,9 @@ Public Class EHP_Calculator
             ComboBox_Warframes.Items.Add(ToTitleCase(_Warframe))
         Next
 
-        ' Add mods
-        For Each group As String In Mods.Keys
-            Try
+        Try
+            ' Add mods
+            For Each group As String In Mods.Keys
                 For Each [mod] As JToken In JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\mods\" & group & ".json"))("mods")
                     Mods(group)([mod]("name")) = [mod]("params")
                     Dim modControl As Control = Nothing
@@ -83,10 +89,43 @@ Public Class EHP_Calculator
                     End Select
                     Controls.Find("CheckedGroupBox_" & group, True).FirstOrDefault.Controls.Add(modControl)
                 Next
-            Catch ex As Exception
-                MessageBox.Show(ex.Message, "Failed to Load '" & group & "' Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        Next
+            Next
+
+            ' Add other
+            For Each group As String In Misc.Keys
+                For Each item As JToken In JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\" & group & "\" & group & ".json"))(group)
+                    Misc(group)(item("name")) = item("params")
+                    Dim miscControl As Control = Nothing
+                    Select Case item.SelectToken("params.type")
+                        Case "radio"
+                            miscControl = New RadioInput With {
+                                .Name = item("name"),
+                                .Text = ToTitleCase(item("name")),
+                                .Maximum = item.SelectToken("params.rank_max"),
+                                .Minimum = item.SelectToken("params.rank_min")
+                            }
+                        Case "checked"
+                            miscControl = New CheckedInput With {
+                                .Name = item("name"),
+                                .Text = ToTitleCase(item("name")),
+                                .Maximum = item.SelectToken("params.rank_max"),
+                                .Minimum = item.SelectToken("params.rank_min")
+                            }
+                        Case "checked_dual"
+                            miscControl = New CheckedDualInput With {
+                                .Name = item("name"),
+                                .Text = ToTitleCase(item("name")),
+                                .Secondary_Text = ToTitleCase(item.SelectToken("params.charges.label")),
+                                .Maximum = item.SelectToken("params.rank_max"),
+                                .Minimum = item.SelectToken("params.rank_min")
+                            }
+                    End Select
+                    Controls.Find("CheckedGroupBox_" & group, True).FirstOrDefault.Controls.Add(miscControl)
+                Next
+            Next
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Failed to Load Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Private Sub EHP_Calculator_with_GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -95,7 +134,7 @@ Public Class EHP_Calculator
         AddHandler MaxValueToggle1.CheckedChanged, Function() Settings.SetValue("user_prefs", "default_max", MaxValueToggle1.Checked)
 
         'debug
-        Log.Write(DumpMods)
+        Log.Write(DumpDicts)
     End Sub
 
     Private Sub SelectedWarframeChanged(sender As Object, e As EventArgs)
@@ -154,12 +193,21 @@ Public Class EHP_Calculator
         End If
     End Sub
 
-    Private Function DumpMods() As String
+    Private Function DumpDicts() As String
         '
         '   DEBUG FUNCTION
         '
         Dim msg As String = "{" & vbCrLf
         For Each t In Mods
+            msg = msg & "   """ & t.Key & """: " & "["
+            For Each tt In t.Value
+                Dim params As String = tt.Value.ToString
+                params = System.Text.RegularExpressions.Regex.Replace(params, "\r\n", vbCrLf & "        ")
+                msg = msg & vbCrLf & "      """ & tt.Key & """: " & params & ","
+            Next
+            msg = msg.TrimEnd(",") & vbCrLf & "   ]," & vbCrLf
+        Next
+        For Each t In Misc
             msg = msg & "   """ & t.Key & """: " & "["
             For Each tt In t.Value
                 Dim params As String = tt.Value.ToString
