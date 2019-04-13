@@ -7,6 +7,11 @@ Imports System.Text.Encoding
 
 Public Class Warframe_PluginHost
 
+    <Import(GetType(ISettings))>
+    Public Settings As ISettings
+    <Import(GetType(ILogging))>
+    Public Log As ILogging
+
     <ImportMany()>
     Private Property Extensions As IEnumerable(Of Lazy(Of IMethods, IMeta))
     Private __container As CompositionContainer
@@ -42,6 +47,20 @@ Public Class Warframe_PluginHost
     End Sub
 
     Private Sub Warframe_PluginHost_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Size = New Size(Settings.GetValue("Application_Prefs", "window_width", Size.Width),
+                        Settings.GetValue("Application_Prefs", "window_height", Size.Height))
+        Location = New Point(Settings.GetValue("Application_Prefs", "window_location_x", Location.X),
+                        Settings.GetValue("Application_Prefs", "window_location_y", Location.Y))
+
+        AddHandler ResizeEnd, Sub()
+                                  Settings.SetValue("Application_Prefs", "window_width", Size.Width)
+                                  Settings.SetValue("Application_Prefs", "window_height", Size.Height)
+                              End Sub
+        AddHandler Move, Sub()
+                             Settings.SetValue("Application_Prefs", "window_location_x", Location.X)
+                             Settings.SetValue("Application_Prefs", "window_location_y", Location.Y)
+                         End Sub
+
         Try
             Dim ExtensionInfo As String = ""
             For Each i As Lazy(Of IMethods, IMeta) In Extensions
@@ -66,7 +85,7 @@ Public Class Warframe_PluginHost
                 Label_NoExtentionsLoaded.Visible = True
                 ExtensionInfo = "No Extensions Loaded"
             End If
-            File.WriteAllText("Data\Logs\Loaded Plugins.log", ExtensionInfo.TrimEnd)
+            Log.Write(ExtensionInfo.TrimEnd)
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
