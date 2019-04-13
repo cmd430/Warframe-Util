@@ -29,7 +29,7 @@ Public Class EHP_Calculator
         End With
     End Function
 
-    Private Warframes As JObject = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes\_warframes.json"))
+    Private Warframes As JObject = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes\warframes.json"))
     Private Warframe As New Dictionary(Of String, JObject) From {
         {"stats", Nothing},
         {"overides", Nothing},
@@ -56,6 +56,11 @@ Public Class EHP_Calculator
         For Each _Warframe In Warframes("warframes") 'Populate combobox with each warframe
             ComboBox_Warframes.Items.Add(ToTitleCase(_Warframe))
         Next
+
+
+        '
+        '   TODO: turn this into a seperate reusable sub (plus optimise)
+        '
 
         Try
             ' Add mods
