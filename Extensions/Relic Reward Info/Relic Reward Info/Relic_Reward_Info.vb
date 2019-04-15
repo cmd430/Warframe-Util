@@ -13,7 +13,7 @@ Public Class Relic_Reward_Info
     <Import(GetType(ISettings))>
     Public Shared Settings As ISettings
 
-    Public Function Init() As Object Implements IMethods.Init
+    Public Function Init(ByVal __container As TabPage) As Object Implements IMethods.Init
         Return New GUI With {
             .Dock = DockStyle.Fill
         }

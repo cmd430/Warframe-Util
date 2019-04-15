@@ -15,7 +15,7 @@ Public Class example
     <Import(GetType(ISettings))>
     Public Settings As ISettings
 
-    Public Function Init() As Object Implements IMethods.Init
+    Public Function Init(ByVal __container As TabPage) As Object Implements IMethods.Init
         Me.FormBorderStyle = FormBorderStyle.None
         Me.TopLevel = False
         Me.Dock = DockStyle.Fill

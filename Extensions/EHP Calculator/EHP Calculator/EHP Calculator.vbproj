@@ -109,9 +109,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utils\MathUtils.vb" />
-    <Compile Include="Utils\StatUtils.vb" />
-    <Compile Include="Utils\StringUtils.vb" />
+    <Compile Include="Utils\Math_Utils.vb" />
+    <Compile Include="Utils\Stat_Utils.vb" />
+    <Compile Include="Utils\String_Utils.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EHP_Calculator.resx">

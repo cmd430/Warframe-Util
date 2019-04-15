@@ -4,6 +4,7 @@ Imports System.ComponentModel.Composition
 Imports Newtonsoft.Json.Linq
 Imports MEFContracts.Interfaces
 Imports EHP_Calculator_Controls
+Imports EHP_Calculator.Utils
 
 <Export(GetType(IMethods))>
 <ExportMetadata("Name", "EHP Calculator")>
@@ -13,14 +14,20 @@ Imports EHP_Calculator_Controls
 Public Class EHP_Calculator
     Implements IMethods
 
+    Public Property __Container As TabPage
+
     <Import(GetType(ISettings))>
     Public Settings As ISettings
 
     <Import(GetType(ILogging))>
     Public Log As ILogging
 
-    Public Function Init() As Object Implements IMethods.Init
+    <Import(GetType(IStorage))>
+    Public Storage As IStorage
+
+    Public Function Init(ByVal __container As TabPage) As Object Implements IMethods.Init
         With Me
+            .__Container = __container
             .FormBorderStyle = FormBorderStyle.None
             .TopLevel = False
             .Dock = DockStyle.Fill
@@ -29,11 +36,18 @@ Public Class EHP_Calculator
         End With
     End Function
 
-    Private Warframes As JObject = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes\warframes.json"))
     Private Warframe As New Dictionary(Of String, JObject) From {
         {"stats", Nothing},
         {"overides", Nothing},
-        {"rank_multipliers", Warframes("rank")}
+        {"rank_multipliers", JObject.Parse(
+            "{
+                armor:  1,
+                health: 3,
+                shield: 3,
+                energy: 1.5,
+                strength: 1
+             }"
+        )}
     }
     Private Mods As New Dictionary(Of String, Dictionary(Of String, JToken)) From {
         {"auras", New Dictionary(Of String, JToken)},
@@ -46,15 +60,21 @@ Public Class EHP_Calculator
         {"focus", New Dictionary(Of String, JToken)}
     }
 
-    Private Sub New()
-        InitializeComponent()
+    Private Sub EHP_Calculator_with_GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If Not Storage.HasStorage() Then
+            Log.ShowMessage("Missing Required Data" & vbCrLf & "Please Reinstall the Extension or Install the missing data manually", MessageBoxIcon.Error)
+            __Container.Enabled = False
+            Exit Sub
+        End If
 
         AddHandler ComboBox_Warframes.SelectedIndexChanged, AddressOf SelectedWarframeChanged           ' Warframe Changed
         AddHandler Warframe_VariantSelection.SelectedVariantChanged, AddressOf SelectedWarframeChanged  ' Variant Changed
+        MaxValueToggle1.Checked = Settings.GetValue("user_prefs", "default_max", False)                 ' Set/Get from User Prefs
+        AddHandler MaxValueToggle1.CheckedChanged, Function() Settings.SetValue("user_prefs", "default_max", MaxValueToggle1.Checked)
 
         ComboBox_Warframes.SelectedIndex = 0
-        For Each _Warframe In Warframes("warframes") 'Populate combobox with each warframe
-            ComboBox_Warframes.Items.Add(ToTitleCase(_Warframe))
+        For Each frame In Storage.GetFiles("warframes") 'Populate combobox with each warframe
+            ComboBox_Warframes.Items.Add(ToTitleCase(Path.GetFileNameWithoutExtension(frame)))
         Next
 
 
@@ -65,7 +85,7 @@ Public Class EHP_Calculator
         Try
             ' Add mods
             For Each group As String In Mods.Keys
-                For Each [mod] As JToken In JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\mods\" & group & ".json"))("mods")
+                For Each [mod] As JToken In JObject.Parse(Storage.ReadText("mods\" & group & ".json"))("mods")
                     Mods(group)([mod]("name")) = [mod]("params")
                     Dim modControl As Control = Nothing
                     Select Case [mod].SelectToken("params.type")
@@ -95,10 +115,9 @@ Public Class EHP_Calculator
                     Controls.Find("CheckedGroupBox_" & group, True).FirstOrDefault.Controls.Add(modControl)
                 Next
             Next
-
-            ' Add other
+            'Add other
             For Each group As String In Misc.Keys
-                For Each item As JToken In JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\" & group & "\" & group & ".json"))(group)
+                For Each item As JToken In JObject.Parse(Storage.ReadText(group & "\" & group & ".json"))(group)
                     Misc(group)(item("name")) = item("params")
                     Dim miscControl As Control = Nothing
                     Select Case item.SelectToken("params.type")
@@ -131,12 +150,6 @@ Public Class EHP_Calculator
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Failed to Load Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-    End Sub
-
-    Private Sub EHP_Calculator_with_GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Set/Get from User Prefs
-        MaxValueToggle1.Checked = Settings.GetValue("user_prefs", "default_max", False)
-        AddHandler MaxValueToggle1.CheckedChanged, Function() Settings.SetValue("user_prefs", "default_max", MaxValueToggle1.Checked)
 
         'debug
         Log.Write(DumpDicts)
@@ -146,7 +159,7 @@ Public Class EHP_Calculator
         If ComboBox_Warframes.SelectedIndex > 0 Then
 
             ' Load Data for Selected Warframe
-            Dim Selected_Warframe = JObject.Parse(File.ReadAllText("Data\Extensions\EHP Calculator\warframes\" & ComboBox_Warframes.SelectedItem.ToLower() & ".json"))
+            Dim Selected_Warframe = JObject.Parse(Storage.ReadText("warframes\" & ComboBox_Warframes.SelectedItem.ToLower() & ".json"))
 
             ' Enable Variant Selection for Warframe Type (Base/Prime/Umbra)
             Warframe_VariantSelection.AvailableVariants = "base"
@@ -226,3 +239,4 @@ Public Class EHP_Calculator
     End Function
 
 End Class
+

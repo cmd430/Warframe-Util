@@ -1,4 +1,5 @@
-﻿Imports MEFContracts.Interfaces
+﻿Imports MEFContracts
+Imports MEFContracts.Interfaces
 Imports System.ComponentModel.Composition
 Imports System.ComponentModel.Composition.Hosting
 Imports System.IO
@@ -68,7 +69,7 @@ Public Class Warframe_PluginHost
                     Dim ext_tabpage = New TabPage With {
                         .Text = i.Metadata.Name.ToString()
                     }
-                    ext_tabpage.Controls.Add(i.Value.Init)
+                    ext_tabpage.Controls.Add(i.Value.Init(ext_tabpage))
                     TabControl_PluginHost.TabPages.Add(ext_tabpage)
                     ExtensionInfo =
                         ExtensionInfo &
@@ -139,6 +140,84 @@ Public Class Logging
         Catch ex As Exception
             Return False
         End Try
+    End Function
+
+    Public Function ShowMessage(ByVal Message As String, Optional ByVal Icon As MessageBoxIcon = MessageBoxIcon.None, Optional ByVal Buttons As MessageBoxButtons = MessageBoxButtons.OK) Implements ILogging.ShowMessage
+        Return MessageBox.Show(Message, Assembly.GetCallingAssembly().GetName().Name.ToString(), Buttons, Icon)
+    End Function
+
+End Class
+
+<Export(GetType(IStorage))>
+Public Class Storage
+    Implements IStorage
+    '
+    ' Functions for Extentions to Store Data
+    '
+
+    Private Function __StoragePath(ByVal __callingAssembly As String) As String
+        Return "Data\Storage\" & __callingAssembly
+    End Function
+    Private Function __HasStorage(ByVal __callingAssembly As String) As Boolean
+        If Directory.Exists(__StoragePath(__callingAssembly)) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Public Function StoragePath() As String Implements IStorage.StoragePath
+        Return "Data\Storage\" & Assembly.GetCallingAssembly().GetName().Name.ToString()
+    End Function
+
+    Public Function HasStorage() As Boolean Implements IStorage.HasStorage
+        If Directory.Exists(__StoragePath(Assembly.GetCallingAssembly().GetName().Name.ToString())) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Public Function CreateStorage() As Boolean Implements IStorage.CreateStorage
+        Dim __callingAssembly As String = Assembly.GetCallingAssembly().GetName().Name.ToString()
+        Try
+            If Not __HasStorage(__callingAssembly) Then
+                Directory.CreateDirectory(__StoragePath(__callingAssembly))
+            End If
+            Return True
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        End Try
+    End Function
+
+    Public Function DestroyStorage() As Boolean Implements IStorage.DestroyStorage
+        Dim __callingAssembly As String = Assembly.GetCallingAssembly().GetName().Name.ToString()
+        Try
+            If __HasStorage(__callingAssembly) Then
+                Directory.Delete(__StoragePath(__callingAssembly), True)
+            End If
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+
+    Public Function ReadText(ByVal Path As String) As String Implements IStorage.ReadText
+        Dim __callingAssembly As String = Assembly.GetCallingAssembly().GetName().Name.ToString()
+        Return File.ReadAllText(__StoragePath(__callingAssembly) & "\" & Path.TrimStart("\"))
+    End Function
+
+    Public Function GetFiles(ByVal Path As String) Implements IStorage.GetFiles
+        Dim __callingAssembly As String = Assembly.GetCallingAssembly().GetName().Name.ToString()
+        Dim basePath As String = __StoragePath(__callingAssembly) & "\"
+        Dim Files As String() = Directory.GetFiles(basePath & Path.TrimStart("\"))
+        Dim i As Integer = 0
+        For Each file As String In Files
+            Files(i) = file.Replace(basePath, "")
+            i += 1
+        Next
+        Return Files
     End Function
 
 End Class

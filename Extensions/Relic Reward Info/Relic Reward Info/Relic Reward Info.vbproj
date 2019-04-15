@@ -124,6 +124,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)Relic Reward Info.dll" "$(SolutionDir)App\Warframe Util\$(OutDir)Data\Extensions\Relic Reward Info.dll"</PostBuildEvent>
+    <PostBuildEvent>rem copy /Y "$(TargetDir)Relic Reward Info.dll" "$(SolutionDir)App\Warframe Util\$(OutDir)Data\Extensions\Relic Reward Info.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>
