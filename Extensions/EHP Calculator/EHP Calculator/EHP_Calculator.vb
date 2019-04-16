@@ -14,7 +14,7 @@ Imports EHP_Calculator.Utils
 Public Class EHP_Calculator
     Implements IMethods
 
-    Public Property __Container As TabPage
+    Private Property __container As TabPage
 
     <Import(GetType(ISettings))>
     Public Settings As ISettings
@@ -27,7 +27,7 @@ Public Class EHP_Calculator
 
     Public Function Init(ByVal __container As TabPage) As Object Implements IMethods.Init
         With Me
-            .__Container = __container
+            .__container = __container
             .FormBorderStyle = FormBorderStyle.None
             .TopLevel = False
             .Dock = DockStyle.Fill
@@ -35,6 +35,11 @@ Public Class EHP_Calculator
             Return Me
         End With
     End Function
+
+    Private Sub MissingData()
+        ' Message for any data parse errors
+        Log.ShowMessage("Missing Required Data" & vbCrLf & "Please Reinstall the Extension or Install the missing data manually", MessageBoxIcon.Error)
+    End Sub
 
     Private Warframe As New Dictionary(Of String, JObject) From {
         {"stats", Nothing},
@@ -62,8 +67,8 @@ Public Class EHP_Calculator
 
     Private Sub EHP_Calculator_with_GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Not Storage.HasStorage() Then
-            Log.ShowMessage("Missing Required Data" & vbCrLf & "Please Reinstall the Extension or Install the missing data manually", MessageBoxIcon.Error)
-            __Container.Enabled = False
+            MissingData()
+            __container.Enabled = False
             Exit Sub
         End If
 
@@ -148,11 +153,8 @@ Public Class EHP_Calculator
                 Next
             Next
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "Failed to Load Data", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MissingData()
         End Try
-
-        'debug
-        Log.Write(DumpDicts)
     End Sub
 
     Private Sub SelectedWarframeChanged(sender As Object, e As EventArgs)
@@ -210,33 +212,6 @@ Public Class EHP_Calculator
             StatBox_EffectiveHealth.Value = Nothing
         End If
     End Sub
-
-    Private Function DumpDicts() As String
-        '
-        '   DEBUG FUNCTION
-        '
-        Dim msg As String = "{" & vbCrLf
-        For Each t In Mods
-            msg = msg & "   """ & t.Key & """: " & "["
-            For Each tt In t.Value
-                Dim params As String = tt.Value.ToString
-                params = System.Text.RegularExpressions.Regex.Replace(params, "\r\n", vbCrLf & "        ")
-                msg = msg & vbCrLf & "      """ & tt.Key & """: " & params & ","
-            Next
-            msg = msg.TrimEnd(",") & vbCrLf & "   ]," & vbCrLf
-        Next
-        For Each t In Misc
-            msg = msg & "   """ & t.Key & """: " & "["
-            For Each tt In t.Value
-                Dim params As String = tt.Value.ToString
-                params = System.Text.RegularExpressions.Regex.Replace(params, "\r\n", vbCrLf & "        ")
-                msg = msg & vbCrLf & "      """ & tt.Key & """: " & params & ","
-            Next
-            msg = msg.TrimEnd(",") & vbCrLf & "   ]," & vbCrLf
-        Next
-        msg = msg.TrimEnd(",") & vbCrLf & "}"
-        Return msg
-    End Function
 
 End Class
 

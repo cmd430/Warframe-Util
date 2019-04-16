@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "base": {
+      "armor": 300,
+      "health": 75,
+      "shield": 450,
+      "energy": 0,
+      "strength": 100
+    }
+  },
+  "overrides": {
+    "rank": {
+      "shield": 3.5
+    }
+  }
+}

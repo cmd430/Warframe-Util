@@ -28,9 +28,12 @@ Public Class StatBox
         Floor
         Ceiling
     End Enum
+    <EditorBrowsable(EditorBrowsableState.Always)>
+    <Browsable(True)>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
+    <Bindable(True)>
     <Category("!Properties")>
     <DefaultValue(RoundingValues.Floor)>
-    <Browsable(True)>
     Public Property Rounding As New RoundingValues
 
     <Category("!Properties")>

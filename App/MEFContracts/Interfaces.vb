@@ -29,7 +29,7 @@ Public Class Interfaces
         Function CreateStorage() As Boolean
         Function DestroyStorage() As Boolean
         Function ReadText(ByVal Path As String) As String
-        Function GetFiles(ByVal Path As String)
+        Function GetFiles(ByVal Path As String) As String()
     End Interface
 
 End Class

@@ -208,7 +208,7 @@ Public Class Storage
         Return File.ReadAllText(__StoragePath(__callingAssembly) & "\" & Path.TrimStart("\"))
     End Function
 
-    Public Function GetFiles(ByVal Path As String) Implements IStorage.GetFiles
+    Public Function GetFiles(ByVal Path As String) As String() Implements IStorage.GetFiles
         Dim __callingAssembly As String = Assembly.GetCallingAssembly().GetName().Name.ToString()
         Dim basePath As String = __StoragePath(__callingAssembly) & "\"
         Dim Files As String() = Directory.GetFiles(basePath & Path.TrimStart("\"))

@@ -30,6 +30,7 @@ Partial Class EHP_Calculator
         Me.CheckedGroupBox_miscellaneous = New EHP_Calculator_Controls.CheckedGroupBox()
         Me.CheckedGroupBox_power_strength = New EHP_Calculator_Controls.CheckedGroupBox()
         Me.CheckedGroupBox_arcanes = New EHP_Calculator_Controls.CheckedGroupBox()
+        Me.CheckedGroupBox_focus = New EHP_Calculator_Controls.CheckedGroupBox()
         Me.StatBox_Armor = New EHP_Calculator_Controls.StatBox()
         Me.StatBox_Health = New EHP_Calculator_Controls.StatBox()
         Me.StatBox_Shield = New EHP_Calculator_Controls.StatBox()
@@ -38,7 +39,6 @@ Partial Class EHP_Calculator
         Me.StatBox_PowerStrength = New EHP_Calculator_Controls.StatBox()
         Me.Warframe_VariantSelection = New EHP_Calculator_Controls.VariantSelection()
         Me.MaxValueToggle1 = New EHP_Calculator_Controls.MaxValueToggle()
-        Me.CheckedGroupBox_focus = New EHP_Calculator_Controls.CheckedGroupBox()
         Me.GroupBox1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
@@ -139,6 +139,17 @@ Partial Class EHP_Calculator
         Me.CheckedGroupBox_arcanes.TabStop = False
         Me.CheckedGroupBox_arcanes.Text = "Arcanes"
         '
+        'CheckedGroupBox_focus
+        '
+        Me.CheckedGroupBox_focus.AutoSize = True
+        Me.CheckedGroupBox_focus.Limited = True
+        Me.CheckedGroupBox_focus.Location = New System.Drawing.Point(3, 208)
+        Me.CheckedGroupBox_focus.Name = "CheckedGroupBox_focus"
+        Me.CheckedGroupBox_focus.Size = New System.Drawing.Size(103, 35)
+        Me.CheckedGroupBox_focus.TabIndex = 43
+        Me.CheckedGroupBox_focus.TabStop = False
+        Me.CheckedGroupBox_focus.Text = "Focus Abilites"
+        '
         'StatBox_Armor
         '
         Me.StatBox_Armor.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -147,7 +158,6 @@ Partial Class EHP_Calculator
         Me.StatBox_Armor.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Armor.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Armor.Name = "StatBox_Armor"
-        Me.StatBox_Armor.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.None
         Me.StatBox_Armor.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Armor.TabIndex = 32
         Me.StatBox_Armor.Text = "Armor"
@@ -160,7 +170,6 @@ Partial Class EHP_Calculator
         Me.StatBox_Health.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Health.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Health.Name = "StatBox_Health"
-        Me.StatBox_Health.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.None
         Me.StatBox_Health.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Health.TabIndex = 33
         Me.StatBox_Health.Text = "Health"
@@ -173,7 +182,6 @@ Partial Class EHP_Calculator
         Me.StatBox_Shield.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Shield.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Shield.Name = "StatBox_Shield"
-        Me.StatBox_Shield.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.None
         Me.StatBox_Shield.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Shield.TabIndex = 34
         Me.StatBox_Shield.Text = "Shield"
@@ -199,7 +207,6 @@ Partial Class EHP_Calculator
         Me.StatBox_Energy.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Energy.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Energy.Name = "StatBox_Energy"
-        Me.StatBox_Energy.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.None
         Me.StatBox_Energy.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Energy.TabIndex = 35
         Me.StatBox_Energy.Text = "Energy"
@@ -212,7 +219,6 @@ Partial Class EHP_Calculator
         Me.StatBox_PowerStrength.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_PowerStrength.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_PowerStrength.Name = "StatBox_PowerStrength"
-        Me.StatBox_PowerStrength.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.None
         Me.StatBox_PowerStrength.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_PowerStrength.TabIndex = 36
         Me.StatBox_PowerStrength.Text = "Power Strength"
@@ -239,17 +245,6 @@ Partial Class EHP_Calculator
         Me.MaxValueToggle1.Size = New System.Drawing.Size(130, 17)
         Me.MaxValueToggle1.TabIndex = 51
         Me.MaxValueToggle1.Text = "Default to Max Values"
-        '
-        'CheckedGroupBox_focus
-        '
-        Me.CheckedGroupBox_focus.AutoSize = True
-        Me.CheckedGroupBox_focus.Limited = True
-        Me.CheckedGroupBox_focus.Location = New System.Drawing.Point(3, 208)
-        Me.CheckedGroupBox_focus.Name = "CheckedGroupBox_focus"
-        Me.CheckedGroupBox_focus.Size = New System.Drawing.Size(103, 35)
-        Me.CheckedGroupBox_focus.TabIndex = 43
-        Me.CheckedGroupBox_focus.TabStop = False
-        Me.CheckedGroupBox_focus.Text = "Focus Abilites"
         '
         'EHP_Calculator
         '

@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "base": {
+      "armor": 150,
+      "health": 75,
+      "shield": 100,
+      "energy": 200,
+      "strength": 100
+    }
+  }
+}
