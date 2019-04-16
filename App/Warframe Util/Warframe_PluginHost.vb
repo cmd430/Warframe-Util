@@ -18,6 +18,7 @@ Public Class Warframe_PluginHost
     Private __container As CompositionContainer
 
     Public Sub New()
+        SetStyle(ControlStyles.UserPaint Or ControlStyles.OptimizedDoubleBuffer Or ControlStyles.AllPaintingInWmPaint Or ControlStyles.SupportsTransparentBackColor, True)
         AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf DoResolve
         InitializeComponent()
         CreateIfMissing("Data\Extensions")
@@ -33,6 +34,15 @@ Public Class Warframe_PluginHost
             MsgBox(ex.ToString)
         End Try
     End Sub
+
+    Protected Overrides ReadOnly Property CreateParams() As CreateParams
+        ' Prevent Resize Lag
+        Get
+            Dim params As CreateParams = MyBase.CreateParams
+            params.ExStyle = params.ExStyle Or &H2000000
+            Return params
+        End Get
+    End Property
 
     Private Function DoResolve(ByVal sender As Object, ByVal e As ResolveEventArgs) As Assembly
         Dim file As String = e.Name.Substring(0, InStr(e.Name, ",") - 1) & ".dll"
@@ -90,6 +100,14 @@ Public Class Warframe_PluginHost
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
+    End Sub
+
+    Private Sub Warframe_PluginHost_ResizeBegin(sender As Object, e As EventArgs) Handles Me.ResizeBegin
+        '  SuspendLayout()
+    End Sub
+
+    Private Sub Warframe_PluginHost_ResizeEnd(sender As Object, e As EventArgs) Handles Me.ResizeEnd
+        ' ResumeLayout()
     End Sub
 
 End Class

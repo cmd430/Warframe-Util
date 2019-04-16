@@ -24,6 +24,12 @@ Partial Class EHP_Calculator
     Private Sub InitializeComponent()
         Me.ComboBox_Warframes = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.StatBox_Armor = New EHP_Calculator_Controls.StatBox()
+        Me.StatBox_Health = New EHP_Calculator_Controls.StatBox()
+        Me.StatBox_Shield = New EHP_Calculator_Controls.StatBox()
+        Me.StatBox_EffectiveHealth = New EHP_Calculator_Controls.StatBox()
+        Me.StatBox_Energy = New EHP_Calculator_Controls.StatBox()
+        Me.StatBox_PowerStrength = New EHP_Calculator_Controls.StatBox()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.CheckedGroupBox_auras = New EHP_Calculator_Controls.CheckedGroupBox()
         Me.CheckedGroupBox_survivability = New EHP_Calculator_Controls.CheckedGroupBox()
@@ -31,12 +37,6 @@ Partial Class EHP_Calculator
         Me.CheckedGroupBox_power_strength = New EHP_Calculator_Controls.CheckedGroupBox()
         Me.CheckedGroupBox_arcanes = New EHP_Calculator_Controls.CheckedGroupBox()
         Me.CheckedGroupBox_focus = New EHP_Calculator_Controls.CheckedGroupBox()
-        Me.StatBox_Armor = New EHP_Calculator_Controls.StatBox()
-        Me.StatBox_Health = New EHP_Calculator_Controls.StatBox()
-        Me.StatBox_Shield = New EHP_Calculator_Controls.StatBox()
-        Me.StatBox_EffectiveHealth = New EHP_Calculator_Controls.StatBox()
-        Me.StatBox_Energy = New EHP_Calculator_Controls.StatBox()
-        Me.StatBox_PowerStrength = New EHP_Calculator_Controls.StatBox()
         Me.Warframe_VariantSelection = New EHP_Calculator_Controls.VariantSelection()
         Me.MaxValueToggle1 = New EHP_Calculator_Controls.MaxValueToggle()
         Me.GroupBox1.SuspendLayout()
@@ -69,6 +69,85 @@ Partial Class EHP_Calculator
         Me.GroupBox1.TabIndex = 46
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Stats"
+        '
+        'StatBox_Armor
+        '
+        Me.StatBox_Armor.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.StatBox_Armor.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatBox_Armor.Location = New System.Drawing.Point(6, 28)
+        Me.StatBox_Armor.MaximumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_Armor.MinimumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_Armor.Name = "StatBox_Armor"
+        Me.StatBox_Armor.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
+        Me.StatBox_Armor.Size = New System.Drawing.Size(175, 20)
+        Me.StatBox_Armor.TabIndex = 32
+        Me.StatBox_Armor.Text = "Armor"
+        Me.StatBox_Armor.Value = "0"
+        '
+        'StatBox_Health
+        '
+        Me.StatBox_Health.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.StatBox_Health.Location = New System.Drawing.Point(6, 54)
+        Me.StatBox_Health.MaximumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_Health.MinimumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_Health.Name = "StatBox_Health"
+        Me.StatBox_Health.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
+        Me.StatBox_Health.Size = New System.Drawing.Size(175, 20)
+        Me.StatBox_Health.TabIndex = 33
+        Me.StatBox_Health.Text = "Health"
+        Me.StatBox_Health.Value = "0"
+        '
+        'StatBox_Shield
+        '
+        Me.StatBox_Shield.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.StatBox_Shield.Location = New System.Drawing.Point(6, 80)
+        Me.StatBox_Shield.MaximumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_Shield.MinimumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_Shield.Name = "StatBox_Shield"
+        Me.StatBox_Shield.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
+        Me.StatBox_Shield.Size = New System.Drawing.Size(175, 20)
+        Me.StatBox_Shield.TabIndex = 34
+        Me.StatBox_Shield.Text = "Shield"
+        Me.StatBox_Shield.Value = "0"
+        '
+        'StatBox_EffectiveHealth
+        '
+        Me.StatBox_EffectiveHealth.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.StatBox_EffectiveHealth.Location = New System.Drawing.Point(6, 555)
+        Me.StatBox_EffectiveHealth.MaximumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_EffectiveHealth.MinimumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_EffectiveHealth.Name = "StatBox_EffectiveHealth"
+        Me.StatBox_EffectiveHealth.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Ceiling
+        Me.StatBox_EffectiveHealth.Size = New System.Drawing.Size(175, 20)
+        Me.StatBox_EffectiveHealth.TabIndex = 37
+        Me.StatBox_EffectiveHealth.Text = "Effective Health"
+        Me.StatBox_EffectiveHealth.Value = "0"
+        '
+        'StatBox_Energy
+        '
+        Me.StatBox_Energy.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.StatBox_Energy.Location = New System.Drawing.Point(6, 106)
+        Me.StatBox_Energy.MaximumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_Energy.MinimumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_Energy.Name = "StatBox_Energy"
+        Me.StatBox_Energy.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
+        Me.StatBox_Energy.Size = New System.Drawing.Size(175, 20)
+        Me.StatBox_Energy.TabIndex = 35
+        Me.StatBox_Energy.Text = "Energy"
+        Me.StatBox_Energy.Value = "0"
+        '
+        'StatBox_PowerStrength
+        '
+        Me.StatBox_PowerStrength.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.StatBox_PowerStrength.Location = New System.Drawing.Point(6, 132)
+        Me.StatBox_PowerStrength.MaximumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_PowerStrength.MinimumSize = New System.Drawing.Size(175, 20)
+        Me.StatBox_PowerStrength.Name = "StatBox_PowerStrength"
+        Me.StatBox_PowerStrength.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
+        Me.StatBox_PowerStrength.Size = New System.Drawing.Size(175, 20)
+        Me.StatBox_PowerStrength.TabIndex = 36
+        Me.StatBox_PowerStrength.Text = "Power Strength"
+        Me.StatBox_PowerStrength.Value = "0"
         '
         'FlowLayoutPanel1
         '
@@ -149,85 +228,6 @@ Partial Class EHP_Calculator
         Me.CheckedGroupBox_focus.TabIndex = 43
         Me.CheckedGroupBox_focus.TabStop = False
         Me.CheckedGroupBox_focus.Text = "Focus Abilites"
-        '
-        'StatBox_Armor
-        '
-        Me.StatBox_Armor.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StatBox_Armor.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StatBox_Armor.Location = New System.Drawing.Point(6, 28)
-        Me.StatBox_Armor.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_Armor.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_Armor.Name = "StatBox_Armor"
-        Me.StatBox_Armor.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
-        Me.StatBox_Armor.Size = New System.Drawing.Size(175, 20)
-        Me.StatBox_Armor.TabIndex = 32
-        Me.StatBox_Armor.Text = "Armor"
-        Me.StatBox_Armor.Value = "0"
-        '
-        'StatBox_Health
-        '
-        Me.StatBox_Health.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StatBox_Health.Location = New System.Drawing.Point(6, 54)
-        Me.StatBox_Health.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_Health.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_Health.Name = "StatBox_Health"
-        Me.StatBox_Health.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
-        Me.StatBox_Health.Size = New System.Drawing.Size(175, 20)
-        Me.StatBox_Health.TabIndex = 33
-        Me.StatBox_Health.Text = "Health"
-        Me.StatBox_Health.Value = "0"
-        '
-        'StatBox_Shield
-        '
-        Me.StatBox_Shield.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StatBox_Shield.Location = New System.Drawing.Point(6, 80)
-        Me.StatBox_Shield.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_Shield.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_Shield.Name = "StatBox_Shield"
-        Me.StatBox_Shield.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
-        Me.StatBox_Shield.Size = New System.Drawing.Size(175, 20)
-        Me.StatBox_Shield.TabIndex = 34
-        Me.StatBox_Shield.Text = "Shield"
-        Me.StatBox_Shield.Value = "0"
-        '
-        'StatBox_EffectiveHealth
-        '
-        Me.StatBox_EffectiveHealth.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StatBox_EffectiveHealth.Location = New System.Drawing.Point(6, 555)
-        Me.StatBox_EffectiveHealth.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_EffectiveHealth.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_EffectiveHealth.Name = "StatBox_EffectiveHealth"
-        Me.StatBox_EffectiveHealth.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Ceiling
-        Me.StatBox_EffectiveHealth.Size = New System.Drawing.Size(175, 20)
-        Me.StatBox_EffectiveHealth.TabIndex = 37
-        Me.StatBox_EffectiveHealth.Text = "Effective Health"
-        Me.StatBox_EffectiveHealth.Value = "0"
-        '
-        'StatBox_Energy
-        '
-        Me.StatBox_Energy.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StatBox_Energy.Location = New System.Drawing.Point(6, 106)
-        Me.StatBox_Energy.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_Energy.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_Energy.Name = "StatBox_Energy"
-        Me.StatBox_Energy.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
-        Me.StatBox_Energy.Size = New System.Drawing.Size(175, 20)
-        Me.StatBox_Energy.TabIndex = 35
-        Me.StatBox_Energy.Text = "Energy"
-        Me.StatBox_Energy.Value = "0"
-        '
-        'StatBox_PowerStrength
-        '
-        Me.StatBox_PowerStrength.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.StatBox_PowerStrength.Location = New System.Drawing.Point(6, 132)
-        Me.StatBox_PowerStrength.MaximumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_PowerStrength.MinimumSize = New System.Drawing.Size(175, 20)
-        Me.StatBox_PowerStrength.Name = "StatBox_PowerStrength"
-        Me.StatBox_PowerStrength.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
-        Me.StatBox_PowerStrength.Size = New System.Drawing.Size(175, 20)
-        Me.StatBox_PowerStrength.TabIndex = 36
-        Me.StatBox_PowerStrength.Text = "Power Strength"
-        Me.StatBox_PowerStrength.Value = "0"
         '
         'Warframe_VariantSelection
         '
