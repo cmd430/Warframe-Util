@@ -185,8 +185,8 @@ Public Class EHP_Calculator
             End If
 
             ' Set any Overides that may be present
-            If TypeOf Selected_Warframe.SelectToken("overrides.rank", errorWhenNoMatch:=False) Is Object Then
-                Warframe("overides") = Selected_Warframe.SelectToken("overrides.rank")
+            If TypeOf Selected_Warframe.SelectToken("overrides", errorWhenNoMatch:=False) Is Object Then
+                Warframe("overides") = Selected_Warframe.SelectToken("overrides")
             Else
                 Warframe("overides") = Nothing
             End If

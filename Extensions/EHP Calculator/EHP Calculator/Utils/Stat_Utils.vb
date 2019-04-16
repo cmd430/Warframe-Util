@@ -32,40 +32,40 @@ Namespace Utils
             If Stat = "armor" Then
                 res = CType(Warframe("stats")("armor"), Decimal) * CType(Warframe("rank_multipliers")("armor"), Decimal)
                 If Not Warframe("overides") Is Nothing Then
-                    If TypeOf Warframe("overides").SelectToken("rank.armor", errorWhenNoMatch:=False) Is Object Then
-                        res = CType(Warframe("stats")("armor"), Decimal) * CType(Warframe("overides").SelectToken("rank.armor"), Decimal)
+                    If TypeOf Warframe("overides").SelectToken("rank_multipliers.armor", errorWhenNoMatch:=False) Is Object Then
+                        res = CType(Warframe("stats")("armor"), Decimal) * CType(Warframe("overides").SelectToken("rank_multipliers.armor"), Decimal)
                     End If
                 End If
             End If
             If Stat = "health" Then
                 res = CType(Warframe("stats")("health"), Decimal) * CType(Warframe("rank_multipliers")("health"), Decimal)
                 If Not Warframe("overides") Is Nothing Then
-                    If TypeOf Warframe("overides").SelectToken("rank.health", errorWhenNoMatch:=False) Is Object Then
-                        res = CType(Warframe("stats")("health"), Decimal) * CType(Warframe("overides").SelectToken("rank.health"), Decimal)
+                    If TypeOf Warframe("overides").SelectToken("rank_multipliers.health", errorWhenNoMatch:=False) Is Object Then
+                        res = CType(Warframe("stats")("health"), Decimal) * CType(Warframe("overides").SelectToken("rank_multipliers.health"), Decimal)
                     End If
                 End If
             End If
             If Stat = "shield" Then
                 res = CType(Warframe("stats")("shield"), Decimal) * CType(Warframe("rank_multipliers")("shield"), Decimal)
                 If Not Warframe("overides") Is Nothing Then
-                    If TypeOf Warframe("overides").SelectToken("rank.shield", errorWhenNoMatch:=False) Is Object Then
-                        res = CType(Warframe("stats")("shield"), Decimal) * CType(Warframe("overides").SelectToken("rank.shield"), Decimal)
+                    If TypeOf Warframe("overides").SelectToken("rank_multipliers.shield", errorWhenNoMatch:=False) Is Object Then
+                        res = CType(Warframe("stats")("shield"), Decimal) * CType(Warframe("overides").SelectToken("rank_multipliers.shield"), Decimal)
                     End If
                 End If
             End If
             If Stat = "energy" Then
                 res = CType(Warframe("stats")("energy"), Decimal) * CType(Warframe("rank_multipliers")("energy"), Decimal)
                 If Not Warframe("overides") Is Nothing Then
-                    If TypeOf Warframe("overides").SelectToken("rank.energy", errorWhenNoMatch:=False) Is Object Then
-                        res = CType(Warframe("stats")("energy"), Decimal) * CType(Warframe("overides").SelectToken("rank.energy"), Decimal)
+                    If TypeOf Warframe("overides").SelectToken("rank_multipliers.energy", errorWhenNoMatch:=False) Is Object Then
+                        res = CType(Warframe("stats")("energy"), Decimal) * CType(Warframe("overides").SelectToken("rank_multipliers.energy"), Decimal)
                     End If
                 End If
             End If
             If Stat = "strength" Then
                 res = CType(Warframe("stats")("strength"), Decimal) * CType(Warframe("rank_multipliers")("strength"), Decimal)
                 If Not Warframe("overides") Is Nothing Then
-                    If TypeOf Warframe("overides").SelectToken("rank.strength", errorWhenNoMatch:=False) Is Object Then
-                        res = CType(Warframe("stats")("strength"), Decimal) * CType(Warframe("overides").SelectToken("rank.strength"), Decimal)
+                    If TypeOf Warframe("overides").SelectToken("rank_multipliers.strength", errorWhenNoMatch:=False) Is Object Then
+                        res = CType(Warframe("stats")("strength"), Decimal) * CType(Warframe("overides").SelectToken("rank_multipliers.strength"), Decimal)
                     End If
                 End If
             End If
