@@ -158,6 +158,7 @@ Partial Class EHP_Calculator
         Me.StatBox_Armor.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Armor.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Armor.Name = "StatBox_Armor"
+        Me.StatBox_Armor.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
         Me.StatBox_Armor.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Armor.TabIndex = 32
         Me.StatBox_Armor.Text = "Armor"
@@ -170,6 +171,7 @@ Partial Class EHP_Calculator
         Me.StatBox_Health.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Health.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Health.Name = "StatBox_Health"
+        Me.StatBox_Health.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
         Me.StatBox_Health.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Health.TabIndex = 33
         Me.StatBox_Health.Text = "Health"
@@ -182,6 +184,7 @@ Partial Class EHP_Calculator
         Me.StatBox_Shield.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Shield.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Shield.Name = "StatBox_Shield"
+        Me.StatBox_Shield.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
         Me.StatBox_Shield.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Shield.TabIndex = 34
         Me.StatBox_Shield.Text = "Shield"
@@ -207,6 +210,7 @@ Partial Class EHP_Calculator
         Me.StatBox_Energy.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Energy.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_Energy.Name = "StatBox_Energy"
+        Me.StatBox_Energy.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
         Me.StatBox_Energy.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_Energy.TabIndex = 35
         Me.StatBox_Energy.Text = "Energy"
@@ -219,6 +223,7 @@ Partial Class EHP_Calculator
         Me.StatBox_PowerStrength.MaximumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_PowerStrength.MinimumSize = New System.Drawing.Size(175, 20)
         Me.StatBox_PowerStrength.Name = "StatBox_PowerStrength"
+        Me.StatBox_PowerStrength.Rounding = EHP_Calculator_Controls.StatBox.RoundingValues.Floor
         Me.StatBox_PowerStrength.Size = New System.Drawing.Size(175, 20)
         Me.StatBox_PowerStrength.TabIndex = 36
         Me.StatBox_PowerStrength.Text = "Power Strength"
