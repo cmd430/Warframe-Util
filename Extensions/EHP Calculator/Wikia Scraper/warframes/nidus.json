@@ -9,7 +9,7 @@
     }
   },
   "overrides": {
-    "rank": {
+    "rank_multipliers": {
       "armor": 1.5,
       "strength": 1.15
     }

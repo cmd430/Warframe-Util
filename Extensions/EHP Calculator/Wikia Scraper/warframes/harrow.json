@@ -7,5 +7,10 @@
       "energy": 100,
       "strength": 100
     }
+  },
+  "overrides": {
+    "overshield": {
+      "max": 2400
+    }
   }
 }

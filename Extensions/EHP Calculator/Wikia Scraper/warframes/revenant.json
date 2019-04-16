@@ -9,7 +9,7 @@
     }
   },
   "overrides": {
-    "rank": {
+    "rank_multipliers": {
       "energy": 1.504
     }
   }
