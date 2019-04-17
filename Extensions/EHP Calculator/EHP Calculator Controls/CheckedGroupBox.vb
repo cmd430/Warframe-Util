@@ -19,8 +19,10 @@ Public Class CheckedGroupBox
             .AutoSize = True
         }
         Text = Name
+        AutoSize = True
         Controls.Add(HeaderCheckBox)
         FlowLayout = New FlowLayoutPanel With {
+            .Name = "FlowLayoutPanel1",
             .Dock = DockStyle.Fill,
             .AutoSize = True,
             .FlowDirection = FlowDirection.TopDown

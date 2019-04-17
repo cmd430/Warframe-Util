@@ -238,4 +238,16 @@ Public Class Storage
         Return Files
     End Function
 
+    Public Function GetDirectories(ByVal Path As String) As String() Implements IStorage.GetDirectories
+        Dim __callingAssembly As String = Assembly.GetCallingAssembly().GetName().Name.ToString()
+        Dim basePath As String = __StoragePath(__callingAssembly) & "\"
+        Dim Directories As String() = Directory.GetDirectories(basePath & Path.TrimStart("\"))
+        Dim i As Integer = 0
+        For Each file As String In Directories
+            Directories(i) = file.Replace(basePath, "")
+            i += 1
+        Next
+        Return Directories
+    End Function
+
 End Class

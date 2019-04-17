@@ -30,6 +30,7 @@ Public Class Interfaces
         Function DestroyStorage() As Boolean
         Function ReadText(ByVal Path As String) As String
         Function GetFiles(ByVal Path As String) As String()
+        Function GetDirectories(ByVal Path As String) As String()
     End Interface
 
 End Class

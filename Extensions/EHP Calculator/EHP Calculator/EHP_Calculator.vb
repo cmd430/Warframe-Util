@@ -54,16 +54,7 @@ Public Class EHP_Calculator
              }"
         )}
     }
-    Private Mods As New Dictionary(Of String, Dictionary(Of String, JToken)) From {
-        {"auras", New Dictionary(Of String, JToken)},
-        {"survivability", New Dictionary(Of String, JToken)},
-        {"miscellaneous", New Dictionary(Of String, JToken)},
-        {"power_strength", New Dictionary(Of String, JToken)}
-    }
-    Private Misc As New Dictionary(Of String, Dictionary(Of String, JToken)) From {
-        {"arcanes", New Dictionary(Of String, JToken)},
-        {"focus", New Dictionary(Of String, JToken)}
-    }
+    Private Modifiers As New Dictionary(Of String, Dictionary(Of String, JToken))
 
     Private Sub EHP_Calculator_with_GUI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Not Storage.HasStorage() Then
@@ -82,75 +73,59 @@ Public Class EHP_Calculator
             ComboBox_Warframes.Items.Add(ToTitleCase(Path.GetFileNameWithoutExtension(frame)))
         Next
 
-
         '
         '   TODO: turn this into a seperate reusable sub (plus optimise)
         '
-
         Try
-            ' Add mods
-            For Each group As String In Mods.Keys
-                For Each [mod] As JToken In JObject.Parse(Storage.ReadText("mods\" & group & ".json"))("mods")
-                    Mods(group)([mod]("name")) = [mod]("params")
-                    Dim modControl As Control = Nothing
-                    Select Case [mod].SelectToken("params.type")
-                        Case "radio"
-                            modControl = New RadioInput With {
-                                .Name = [mod]("name"),
-                                .Text = ToTitleCase([mod]("name")),
-                                .Maximum = [mod].SelectToken("params.rank_max"),
-                                .Minimum = [mod].SelectToken("params.rank_min")
-                            }
-                        Case "checked"
-                            modControl = New CheckedInput With {
-                                .Name = [mod]("name"),
-                                .Text = ToTitleCase([mod]("name")),
-                                .Maximum = [mod].SelectToken("params.rank_max"),
-                                .Minimum = [mod].SelectToken("params.rank_min")
-                            }
-                        Case "checked_dual"
-                            modControl = New CheckedDualInput With {
-                                .Name = [mod]("name"),
-                                .Text = ToTitleCase([mod]("name")),
-                                .Secondary_Text = ToTitleCase([mod].SelectToken("params.charges.label")),
-                                .Maximum = [mod].SelectToken("params.rank_max"),
-                                .Minimum = [mod].SelectToken("params.rank_min")
-                            }
-                    End Select
-                    Controls.Find("CheckedGroupBox_" & group, True).FirstOrDefault.Controls.Add(modControl)
-                Next
-            Next
-            'Add other
-            For Each group As String In Misc.Keys
-                For Each item As JToken In JObject.Parse(Storage.ReadText(group & "\" & group & ".json"))(group)
-                    Misc(group)(item("name")) = item("params")
-                    Dim miscControl As Control = Nothing
-                    Select Case item.SelectToken("params.type")
-                        Case "radio"
-                            miscControl = New RadioInput With {
-                                .Name = item("name"),
-                                .Text = ToTitleCase(item("name")),
-                                .Maximum = item.SelectToken("params.rank_max"),
-                                .Minimum = item.SelectToken("params.rank_min")
-                            }
-                        Case "checked"
-                            miscControl = New CheckedInput With {
-                                .Name = item("name"),
-                                .Text = ToTitleCase(item("name")),
-                                .Maximum = item.SelectToken("params.rank_max"),
-                                .Minimum = item.SelectToken("params.rank_min")
-                            }
-                        Case "checked_dual"
-                            miscControl = New CheckedDualInput With {
-                                .Name = item("name"),
-                                .Text = ToTitleCase(item("name")),
-                                .Secondary_Text = ToTitleCase(item.SelectToken("params.charges.label")),
-                                .Maximum = item.SelectToken("params.rank_max"),
-                                .Minimum = item.SelectToken("params.rank_min")
-                            }
-                    End Select
-                    Controls.Find("CheckedGroupBox_" & group, True).FirstOrDefault.Controls.Add(miscControl)
-                Next
+            ' Add Groups
+            For Each Dir As String In Storage.GetDirectories("\")
+                Dir = Dir.ToLower()
+                If Not Dir = "warframes" Then
+                    Dim GP_Box As New CheckedGroupBox With {
+                        .Name = "CheckedGroupBox_" & Dir,
+                        .Text = ToTitleCase(Dir),
+                        .Parent = FlowLayoutPanel1
+                    }
+                    Modifiers.Add(Dir, New Dictionary(Of String, JToken))
+                    For Each item As JToken In JObject.Parse(Storage.ReadText(Dir & "\" & Dir & ".json"))(Dir)
+                        Modifiers(Dir)(item("name")) = item("params")
+                        Dim miscControl As Control = Nothing
+                        Dim iterations As Integer = 0
+                        If item.SelectToken("params.type") = "arcane" Then
+                            GP_Box.Limited = True
+                            GP_Box.Limit = 2
+                            iterations = -1
+                        End If
+                        Do Until iterations = 1
+                            Select Case item.SelectToken("control")
+                                Case "RadioInput"
+                                    miscControl = New RadioInput With {
+                                    .Name = item("name"),
+                                    .Text = ToTitleCase(item("name")),
+                                    .Maximum = item.SelectToken("params.rank_max"),
+                                    .Minimum = item.SelectToken("params.rank_min")
+                                }
+                                Case "CheckedInput"
+                                    miscControl = New CheckedInput With {
+                                    .Name = item("name"),
+                                    .Text = ToTitleCase(item("name")),
+                                    .Maximum = item.SelectToken("params.rank_max"),
+                                    .Minimum = item.SelectToken("params.rank_min")
+                                }
+                                Case "CheckedDualInput"
+                                    miscControl = New CheckedDualInput With {
+                                   .Name = item("name"),
+                                   .Text = ToTitleCase(item("name")),
+                                   .Secondary_Text = ToTitleCase(item.SelectToken("params.charges.label")),
+                                   .Maximum = item.SelectToken("params.rank_max"),
+                                   .Minimum = item.SelectToken("params.rank_min")
+                                }
+                            End Select
+                            Controls.Find("CheckedGroupBox_" & Dir, True).FirstOrDefault.Controls.Add(miscControl)
+                            iterations += 1
+                        Loop
+                    Next
+                End If
             Next
         Catch ex As Exception
             MissingData()
