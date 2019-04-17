@@ -74,7 +74,7 @@ Public Class EHP_Calculator
         Next
 
         '
-        '   TODO: turn this into a seperate reusable sub (plus optimise)
+        ' TODO: turn this into a seperate reusable sub (plus optimise)
         '
         Try
             ' Add Groups
